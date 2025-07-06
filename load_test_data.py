@@ -47,8 +47,8 @@ def load_test_data():
     # Создание шаблонов документов
     templates_data = [
         {
-            'name': 'Договор купли-продажи недвижимости',
-            'template_content': '''ДОГОВОР КУПЛИ-ПРОДАЖИ НЕДВИЖИМОСТИ
+            'name': 'Договор 1',
+            'template_content': '''ДОГОВОР 1
 
 г. Москва                                                    {date}
 
@@ -65,8 +65,8 @@ def load_test_data():
             'required_fields': ['first_name', 'last_name', 'middle_name', 'passport_number', 'contract_number', 'date']
         },
         {
-            'name': 'Доверенность на представление интересов',
-            'template_content': '''ДОВЕРЕННОСТЬ
+            'name': 'Договор 2',
+            'template_content': '''Договор 2
 
 г. Москва                                                    {date}
 
