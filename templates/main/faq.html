@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Часто задаваемые вопросы</h1>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Категории</h6>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="?category=" class="list-group-item list-group-item-action">Все</a>
+                    {% for category in categories %}
+                    <a href="?category={{ category }}" class="list-group-item list-group-item-action">{{ category }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            {% for faq in faqs %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ faq.title }}</h5>
+                    <p class="card-text">{{ faq.content|linebreaks }}</p>
+                    <small class="text-muted">Категория: {{ faq.category }}</small>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info">
+                Вопросы не найдены.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

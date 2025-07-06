@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Правовые новости - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Правовые новости</h1>
+    
+    <div class="row">
+        <div class="col-md-8">
+            {% if news %}
+                {% for article in news.articles %}
+                <div class="news-item">
+                    <h4>{{ article.title }}</h4>
+                    <p class="text-muted">
+                        <small>
+                            {{ article.published_at }} | {{ article.source }}
+                        </small>
+                    </p>
+                    <p>{{ article.content|truncatewords:50 }}</p>
+                    {% if article.url %}
+                    <a href="{{ article.url }}" target="_blank" class="btn btn-outline-primary btn-sm">Читать полностью</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="alert alert-info">
+                <h5>Новости временно недоступны</h5>
+                <p>Мы работаем над восстановлением доступа к новостям. Попробуйте позже.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6>Полезные ссылки</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><a href="http://www.consultant.ru" target="_blank">КонсультантПлюс</a></li>
+                        <li><a href="http://www.garant.ru" target="_blank">Гарант</a></li>
+                        <li><a href="http://pravo.gov.ru" target="_blank">Официальный интернет-портал правовой информации</a></li>
+                        <li><a href="http://www.kremlin.ru" target="_blank">Президент России</a></li>
+                        <li><a href="http://government.ru" target="_blank">Правительство РФ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6>Категории новостей</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-1">
+                        <span class="badge bg-primary">Гражданское право</span>
+                        <span class="badge bg-secondary">Уголовное право</span>
+                        <span class="badge bg-success">Налоговое право</span>
+                        <span class="badge bg-info">Трудовое право</span>
+                        <span class="badge bg-warning">Семейное право</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

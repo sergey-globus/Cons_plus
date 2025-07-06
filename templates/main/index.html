@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">Добро пожаловать в Правовой портал</h1>
+        <p class="lead mb-4">Получите квалифицированную юридическую помощь онлайн</p>
+        <a href="{% url 'consultation' %}" class="btn btn-light btn-lg">Получить консультацию</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Консультации</h5>
+                    <p class="card-text">Получите профессиональную юридическую консультацию от наших экспертов</p>
+                    <a href="{% url 'consultation' %}" class="btn btn-primary">Задать вопрос</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Генератор документов</h5>
+                    <p class="card-text">Создавайте юридические документы по готовым шаблонам</p>
+                    <a href="{% url 'document_generator' %}" class="btn btn-primary">Создать документ</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Правовые новости</h5>
+                    <p class="card-text">Следите за изменениями в законодательстве</p>
+                    <a href="{% url 'legal_news' %}" class="btn btn-primary">Читать новости</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Часто задаваемые вопросы</h2>
+        </div>
+        {% for faq in faqs %}
+        <div class="col-md-6 mb-3">
+            <div class="faq-item">
+                <h6>{{ faq.title }}</h6>
+                <p class="text-muted">{{ faq.content|truncatewords:20 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-12 text-center">
+            <a href="{% url 'faq' %}" class="btn btn-outline-primary">Все вопросы</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
