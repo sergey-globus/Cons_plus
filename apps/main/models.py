@@ -54,3 +54,40 @@ class DocumentTemplate(models.Model):
     def set_required_fields(self, fields_list):
         """Установить список обязательных полей"""
         self.required_fields_json = json.dumps(fields_list)
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class LegalNews(models.Model):
+    TOPIC_CHOICES = [
+        ('civil', 'Гражданское право'),
+        ('criminal', 'Уголовное право'),
+        ('tax', 'Налоговое право'),
+        ('labor', 'Трудовое право'),
+        ('family', 'Семейное право'),
+        ('housing', 'Маркетплейсы'),
+        ('none', 'Без темы'),
+    ]
+    
+    title = models.CharField(max_length=200, verbose_name="Заголовок")
+    content = models.TextField(verbose_name="Содержание")
+    published_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата публикации")
+    topic = models.CharField(
+    max_length=20,
+    choices=TOPIC_CHOICES,
+    verbose_name="Тема",
+    default='none'  # Устанавливаем "Гражданское право" по умолчанию
+)
+    is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Автор")
+
+    class Meta:
+        verbose_name = "Правовая новость"
+        verbose_name_plural = "Правовые новости"
+        ordering = ['-published_at']
+
+    def __str__(self):
+        return self.title
+
+    def get_topic_display(self):
+        return dict(self.TOPIC_CHOICES).get(self.topic, self.topic)

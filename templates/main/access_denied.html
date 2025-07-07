@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="alert alert-danger text-center">
+        <h4><i class="fas fa-exclamation-triangle"></i> Доступ запрещен</h4>
+        <p>Только администраторы могут добавлять новости.</p>
+        <a href="{% url 'legal_news' %}" class="btn btn-primary">
+            Вернуться к новостям
+        </a>
+    </div>
+</div>
+{% endblock %}

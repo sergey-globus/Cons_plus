@@ -20,3 +20,23 @@ class ConsultationAdmin(admin.ModelAdmin):
 class DocumentTemplateAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+
+from django.contrib import admin
+from .models import LegalNews
+
+@admin.register(LegalNews)
+class LegalNewsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'topic_display', 'published_at', 'is_published', 'author')
+    list_filter = ('is_published', 'topic', 'published_at')
+    search_fields = ('title', 'content')
+    list_editable = ('is_published',)
+    readonly_fields = ('published_at', 'author')
+    
+    def topic_display(self, obj):
+        return obj.get_topic_display()
+    topic_display.short_description = 'Тема'
+    
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.author = request.user
+        super().save_model(request, obj, form, change)

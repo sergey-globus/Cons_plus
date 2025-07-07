@@ -1,5 +1,6 @@
 from django import forms
 from .models import Consultation
+from .models import LegalNews
 
 class ConsultationForm(forms.ModelForm):
     class Meta:
@@ -19,3 +20,11 @@ class DocumentGeneratorForm(forms.Form):
     middle_name = forms.CharField(max_length=50, label="Отчество", widget=forms.TextInput(attrs={'class': 'form-control'}))
     passport_number = forms.CharField(max_length=20, label="Номер паспорта", widget=forms.TextInput(attrs={'class': 'form-control'}))
     contract_number = forms.CharField(max_length=50, label="Номер договора", widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+class LegalNewsForm(forms.ModelForm):
+    class Meta:
+        model = LegalNews
+        fields = ['title', 'content', 'topic', 'is_published']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 10}),
+        }
