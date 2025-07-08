@@ -29,9 +29,7 @@
 1.  **Клонируйте репозиторий:**
 
     ```
-    git clone https://git.nlmk.com/wms-coilyard-hrm/l2/nlmk-mes-umsklad-optimizationservice.git
-    cd .\nlmk-mes-umsklad-optimizationservice\
-    git checkout dev
+    git clone https://github.com/sergey-globus/Cons_plus.git
     ```
 2. **Создайте и активируйте виртуальное окружение:**
 
@@ -44,7 +42,7 @@
     *   Активируйте виртуальное окружение 
         
         ```
-        source venv/Scripts/activate
+        source .venv/Scripts/activate
         ``` 
 
 3.  **Установите зависимости:**
