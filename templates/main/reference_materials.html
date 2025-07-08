@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вопросы и ответы - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small bg-primary text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Вопросы и ответы</h1>
+                <p class="lead text-center">Полезная правовая информация для защиты ваших прав</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="materials-grid">
+                <!-- Права пользователей на маркетплейсах -->
+                <div class="material-card featured">
+                    <div class="material-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Права пользователей на маркетплейсах</h3>
+                        <p class="material-description">Полная информация о возврате товаров, сроках, требованиях и процедуре защиты прав потребителей при покупках в интернет-магазинах.</p>
+                        <div class="material-tags">
+                            <span class="tag">Возврат товаров</span>
+                            <span class="tag">Защита прав</span>
+                            <span class="tag">Маркетплейсы</span>
+                        </div>
+                        <a href="{% url 'marketplace_rights' %}" class="btn btn-primary">Читать статью</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="sidebar">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Не нашли ответ на свой вопрос? Обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-primary btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5><i class="fas fa-file-alt"></i> Документы</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Создавайте правовые документы по готовым шаблонам.</p>
+                        <a href="{% url 'document_generator' %}" class="btn btn-outline-primary btn-block">Генератор документов</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hero-section-small {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+}
+
+.materials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.material-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+    width: 100%;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.material-card.featured {
+    border: 2px solid #007bff;
+    background: linear-gradient(135deg, #f8f9ff, #ffffff);
+}
+
+.material-card.featured .material-icon i {
+    color: #007bff;
+}
+
+.material-icon {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.material-icon i {
+    font-size: 3rem;
+    color: #6c757d;
+}
+
+.material-content h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.material-description {
+    color: #6c757d;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.material-tags {
+    margin-bottom: 20px;
+}
+
+.tag {
+    display: inline-block;
+    background: #e9ecef;
+    color: #495057;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.material-card.featured .tag {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar .card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar .card-header {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    border-bottom: none;
+}
+
+.sidebar .card-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .materials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .material-card {
+        padding: 20px;
+    }
+    
+    .material-icon i {
+        font-size: 2.5rem;
+    }
+    
+    .sidebar {
+        position: static;
+        margin-top: 30px;
+    }
+}
+</style>
+{% endblock %}

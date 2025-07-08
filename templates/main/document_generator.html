@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Генератор документов - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Генератор документов</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Создание документа</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="document-form">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="template-select" class="form-label">Выберите шаблон</label>
+                            <select class="form-control" id="template-select" name="template_id" onchange="loadTemplateFields(this.value)">
+                                <option value="">-- Выберите шаблон --</option>
+                                {% for template in templates %}
+                                <option value="{{ template.id }}">{{ template.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div id="template-fields">
+                            <div class="mb-3">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.middle_name.label_tag }}
+                                {{ form.middle_name }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.passport_number.label_tag }}
+                                {{ form.passport_number }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.contract_number.label_tag }}
+                                {{ form.contract_number }}
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="previewDocument()">Предварительный просмотр</button>
+                        <button type="submit" class="btn btn-primary">Создать документ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Предварительный просмотр</h5>
+                </div>
+                <div class="card-body">
+                    <div id="document-preview" class="document-preview" style="display: none;">
+                        <!-- Здесь будет отображаться предварительный просмотр -->
+                    </div>
+                    <p class="text-muted">Выберите шаблон и заполните поля для предварительного просмотра</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/forms.js' %}"></script>
+{% endblock %}

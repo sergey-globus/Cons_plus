@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Консультация - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Получить консультацию</h4>
+                </div>
+                <div class="card-body">
+                    <p>Заполните форму ниже, и наш юрист свяжется с вами в ближайшее время.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.phone.label_tag }}
+                            {{ form.phone }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.question.label_tag }}
+                            {{ form.question }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

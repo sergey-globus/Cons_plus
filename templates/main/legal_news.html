@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Правовые новости - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small bg-primary text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Правовые новости</h1>
+                <p class="lead text-center">Актуальная информация об изменениях в законодательстве</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            {% if news %}
+                {% for article in news.articles %}
+                <div class="news-item">
+                    <h4>{{ article.title }}</h4>
+                    <p class="text-muted">
+                        <small>
+                            <i class="fas fa-calendar-alt"></i> {{ article.published_at }} | 
+                            <i class="fas fa-building"></i> {{ article.source }}
+                        </small>
+                    </p>
+                    <p>{{ article.content|truncatewords:50 }}</p>
+                    {% if article.url %}
+                    <a href="{{ article.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-external-link-alt"></i> Читать полностью
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="alert alert-info">
+                <h5>Новости временно недоступны</h5>
+                <p>Мы работаем над восстановлением доступа к новостям. Попробуйте позже.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6><i class="fas fa-link"></i> Официальные правовые ресурсы</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><a href="http://pravo.gov.ru" target="_blank">Официальный интернет-портал правовой информации</a></li>
+                        <li><a href="https://rospotrebnadzor.ru" target="_blank">Роспотребнадзор</a></li>
+                        <li><a href="https://mintrud.gov.ru" target="_blank">Минтруд России</a></li>
+                        <li><a href="https://nalog.gov.ru" target="_blank">ФНС России</a></li>
+                        <li><a href="https://minstroyrf.gov.ru" target="_blank">Минстрой России</a></li>
+                        <li><a href="http://www.kremlin.ru" target="_blank">Президент России</a></li>
+                        <li><a href="http://government.ru" target="_blank">Правительство РФ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6><i class="fas fa-book"></i> Правовые базы данных</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><a href="http://www.consultant.ru" target="_blank">КонсультантПлюс</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6>Категории новостей</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-1">
+                        <span class="badge bg-primary">Гражданское право</span>
+                        <span class="badge bg-secondary">Уголовное право</span>
+                        <span class="badge bg-success">Налоговое право</span>
+                        <span class="badge bg-info">Трудовое право</span>
+                        <span class="badge bg-warning">Семейное право</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6><i class="fas fa-question-circle"></i> Нужна помощь?</h6>
+                </div>
+                <div class="card-body">
+                    <p>Возникли вопросы по правовым изменениям? Обратитесь к нашим специалистам.</p>
+                    <a href="{% url 'consultation' %}" class="btn btn-primary btn-block">Получить консультацию</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hero-section-small {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+}
+
+.news-item {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.news-item h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.news-item p {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    border-bottom: none;
+}
+
+.card-header h6 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.list-unstyled a {
+    color: #495057;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.list-unstyled li:last-child a {
+    border-bottom: none;
+}
+
+.list-unstyled a:hover {
+    color: #007bff;
+}
+
+.badge {
+    margin: 2px;
+}
+
+@media (max-width: 768px) {
+    .news-item {
+        padding: 20px;
+    }
+}
+</style>
+{% endblock %}
