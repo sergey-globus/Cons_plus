@@ -7,7 +7,6 @@ from django.conf import settings
 
 class GOSTCrypto:
     def __init__(self):
-        # Получаем ключ из настроек Django (hex строка)
         key_hex = settings.ENCRYPTION_KEY
         self.key = bytes.fromhex(key_hex)  # Конвертируем hex в байты
         if len(self.key) != 32:
