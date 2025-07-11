@@ -1,10 +1,14 @@
 from django import forms
 from .models import Consultation
 
+# forms.py
+from django import forms
+from .models import Consultation
+
 class ConsultationForm(forms.ModelForm):
     class Meta:
         model = Consultation
-        fields = ['first_name', 'last_name', 'phone', 'question']
+        fields = ['first_name', 'last_name', 'email', 'question']
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -14,9 +18,9 @@ class ConsultationForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите вашу фамилию'
             }),
-            'phone': forms.TextInput(attrs={
+            'email': forms.EmailInput(attrs={
                 'class': 'form-control',
-                'placeholder': '+7 (000) 000-00-00'
+                'placeholder': 'example@email.com'
             }),
             'question': forms.Textarea(attrs={
                 'class': 'form-control',

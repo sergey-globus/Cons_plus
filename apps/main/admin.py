@@ -10,7 +10,7 @@ class FAQAdmin(admin.ModelAdmin):
 
 @admin.register(Consultation)
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'phone', 'is_processed', 'created_at')
+    list_display = ('first_name', 'last_name', 'email', 'is_processed', 'created_at')
     list_filter = ('is_processed', 'created_at')
     search_fields = ('first_name', 'last_name', 'phone')
     list_editable = ('is_processed',)

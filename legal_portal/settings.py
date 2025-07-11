@@ -63,5 +63,13 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# API настройки
 LEGAL_API_KEY = config('LEGAL_API_KEY', default='')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'market.nadzor.portal@mail.ru'
+EMAIL_HOST_PASSWORD = '***'
+DEFAULT_FROM_EMAIL = 'market.nadzor.portal@mail.ru'  
+SERVER_EMAIL = 'market.nadzor.portal@mail.ru'  

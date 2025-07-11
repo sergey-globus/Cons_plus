@@ -18,12 +18,36 @@ from docx.shared import Inches
 def index(request):
     return render(request, 'main/index.html')
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 def consultation(request):
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Ваша заявка принята! Мы свяжемся с вами в ближайшее время.')
+            consultation = form.save()
+            
+            subject = 'Ваша заявка на консультацию принята'
+            message = f'''
+            Уважаемый(ая) {consultation.first_name} {consultation.last_name},
+            
+            Благодарим вас за обращение на наш правовой портал!
+            Ваш вопрос: "{consultation.question[:50]}..."
+            
+            Наши юристы рассмотрят вашу заявку в ближайшее время и свяжутся с вами по email.
+            
+            С уважением,
+            Команда Правового портала
+            '''
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [consultation.email],
+                fail_silently=False,
+            )
+            
+            messages.success(request, 'Ваша заявка принята! На ваш email отправлено подтверждение.')
             return redirect('consultation')
     else:
         form = ConsultationForm()

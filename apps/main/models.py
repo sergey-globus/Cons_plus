@@ -16,10 +16,12 @@ class FAQ(models.Model):
     def __str__(self):
         return self.title
 
+from django.core.validators import EmailValidator
+
 class Consultation(models.Model):
     first_name = models.CharField(max_length=50, verbose_name="Имя")
     last_name = models.CharField(max_length=50, verbose_name="Фамилия")
-    phone = models.CharField(max_length=20, verbose_name="Телефон")
+    email = models.EmailField(verbose_name="Email", validators=[EmailValidator()])
     question = models.TextField(verbose_name="Вопрос")
     created_at = models.DateTimeField(auto_now_add=True)
     is_processed = models.BooleanField(default=False)
@@ -29,7 +31,7 @@ class Consultation(models.Model):
         verbose_name_plural = "Заявки на консультации"
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} ({self.email})"
 
 class DocumentTemplate(models.Model):
     name = models.CharField(max_length=200, verbose_name="Название шаблона")
