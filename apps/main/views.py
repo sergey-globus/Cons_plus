@@ -25,11 +25,17 @@ def consultation(request):
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
+            # Сохраняем форму, данные автоматически зашифруются через свойства модели
             consultation = form.save()
+            
+            # Получаем расшифрованные данные через свойства
+            first_name = consultation.first_name
+            last_name = consultation.last_name
+            email = consultation.email
             
             subject = 'Ваша заявка на консультацию принята'
             message = f'''
-            Уважаемый(ая) {consultation.first_name} {consultation.last_name},
+            Уважаемый(ая) {first_name} {last_name},
             
             Благодарим вас за обращение на наш правовой портал!
             Ваш вопрос: "{consultation.question[:50]}..."
@@ -39,15 +45,20 @@ def consultation(request):
             С уважением,
             Команда Правового портала
             '''
-            send_mail(
-                subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [consultation.email],
-                fail_silently=False,
-            )
             
-            messages.success(request, 'Ваша заявка принята! На ваш email отправлено подтверждение.')
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [email],  # Используем расшифрованный email
+                    fail_silently=False,
+                )
+                messages.success(request, 'Ваша заявка принята! На ваш email отправлено подтверждение.')
+            except Exception as e:
+                messages.error(request, f'Произошла ошибка при отправке email: {str(e)}')
+                # Можно также залогировать ошибку
+            
             return redirect('consultation')
     else:
         form = ConsultationForm()

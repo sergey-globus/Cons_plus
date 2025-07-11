@@ -10,11 +10,20 @@ class FAQAdmin(admin.ModelAdmin):
 
 @admin.register(Consultation)
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'is_processed', 'created_at')
-    list_filter = ('is_processed', 'created_at')
-    search_fields = ('first_name', 'last_name', 'phone')
-    list_editable = ('is_processed',)
-    readonly_fields = ('created_at',)
+    list_display = ('get_first_name', 'get_last_name', 'get_email', 'created_at')
+    readonly_fields = ('get_first_name', 'get_last_name', 'get_email')
+    
+    def get_first_name(self, obj):
+        return obj.first_name
+    get_first_name.short_description = 'Имя'
+    
+    def get_last_name(self, obj):
+        return obj.last_name
+    get_last_name.short_description = 'Фамилия'
+    
+    def get_email(self, obj):
+        return obj.email
+    get_email.short_description = 'Email'
 
 @admin.register(DocumentTemplate)
 class DocumentTemplateAdmin(admin.ModelAdmin):

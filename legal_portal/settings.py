@@ -3,6 +3,9 @@ from pathlib import Path
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 SECRET_KEY = config('SECRET_KEY', default='your-secret-key-here')
 DEBUG = config('DEBUG', default=True, cast=bool)
@@ -70,6 +73,10 @@ EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'market.nadzor.portal@mail.ru'
-EMAIL_HOST_PASSWORD = '***'
+EMAIL_HOST_PASSWORD = 'axO0mINpZQBg7gIbKJxL'
 DEFAULT_FROM_EMAIL = 'market.nadzor.portal@mail.ru'  
 SERVER_EMAIL = 'market.nadzor.portal@mail.ru'  
+
+ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY')
+if not ENCRYPTION_KEY:
+    raise ValueError("ENCRYPTION_KEY is not set in environment variables")
