@@ -5,8 +5,12 @@ from .crypto import GOSTCrypto
 
 class FAQ(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
-    content = models.TextField(verbose_name="Содержание")
-    category = models.CharField(max_length=100, verbose_name="Категория")
+    synonyms = models.CharField(max_length=200, blank=True, null=True, verbose_name="Синонимы для поиска")
+    description = models.TextField(verbose_name="Описание", default='')
+    category = models.CharField(max_length=100, blank=True, null=True, verbose_name="Категория")
+    tags = models.CharField(max_length=200, blank=True, verbose_name="Теги")  # теги через запятую
+    icon_class = models.CharField(max_length=50, blank=True, default='fas fa-file-alt', verbose_name="Иконка")
+    url_name = models.CharField(max_length=100, blank=True, verbose_name="Имя URL для ссылки")
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 

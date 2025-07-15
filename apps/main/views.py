@@ -15,6 +15,8 @@ import os
 from docx import Document
 from docx.shared import Inches
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
+
 
 def index(request):
     return render(request, 'main/index.html')
@@ -287,8 +289,31 @@ def legal_news(request):
     })
 
 def reference_materials(request):
-    """Главная страница справочных материалов"""
-    return render(request, 'main/reference_materials.html')
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        articles = FAQ.objects.filter(
+            Q(title__iregex=query) | Q(description__iregex=query) | Q(synonyms__iregex=query),
+            is_active=True
+        )
+    else:
+        articles = FAQ.objects.filter(is_active=True)
+
+    for article in articles:
+        article.tags_list = [tag.strip() for tag in article.tags.split(',')] if article.tags else []
+
+    # Отладочная печать - что мы передаем в шаблон
+    print(f"Total articles found: {articles.count()}")
+    for a in articles:
+        print(f"Article: {a.title}, tags: {a.tags_list}")
+
+    context = {
+        'articles': articles,
+        'query': query,
+    }
+
+    return render(request, 'main/reference_materials.html', context)
+
 
 def marketplace_rights(request):
     """Обновленная статья о правах пользователей на маркетплейсах"""
@@ -305,10 +330,6 @@ def price_error(request):
 def glossary(request):
     """Глоссарий правовых терминов"""
     return render(request, 'main/glossary.html')
-
-def reference_materials(request):
-    """Главная страница справочных материалов"""
-    return render(request, 'main/reference_materials.html')
 
 def price_category(request):
     """Категория 'Неверная цена'"""

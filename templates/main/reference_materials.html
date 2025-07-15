@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="hero-section-small text-white rounded p-4 mb-5">
-                <h1 class="display-5 text-center">Частые проблемы</h1>
+                <h1 class="display-5 text-center">Справочные материалы</h1>
                 <p class="lead text-center">Полезная правовая информация для защиты ваших прав</p>
             </div>
         </div>
@@ -18,61 +18,50 @@
             <div class="materials-grid">
                 <!-- Права пользователей на маркетплейсах - основная тема -->
                 <div class="topic-section">
-                    <h2 class="topic-title">
-                        <i class="fas fa-shopping-cart"></i>
-                        Права пользователей на маркетплейсах
-                    </h2>
-                    <p class="topic-description">Комплексная информация о защите прав потребителей при покупках в интернет-магазинах</p>
-                    
+                    <form method="get" action="" class="search-form mb-4" id="searchForm">
+                      <div class="input-group">
+                        <div style="position: relative; flex: 1;">
+                          <input type="text" name="q" id="searchInput" class="form-control"
+                                 placeholder="Права пользователей на маркетплейсах"
+                                 value="{{ request.GET.q|default:'' }}" autocomplete="off" style="padding-right: 3rem;">
+                          <button type="button" id="clearSearch" title="Очистить поиск">&times;</button>
+                        </div>
+                        <button class="btn btn-info" type="submit"><i class="fas fa-search"></i> Найти</button>
+                      </div>
+                    </form>
+
+                    <script>
+                    document.getElementById('clearSearch').addEventListener('click', function() {
+                      const input = document.getElementById('searchInput');
+                      input.value = '';
+                      input.focus();
+                      document.getElementById('searchForm').submit();
+                    });
+                    </script>
+
                     <div class="articles-grid">
-                        <div class="article-card">
-                            <div class="article-icon">
-                                <i class="fas fa-undo-alt"></i>
-                            </div>
-                            <div class="article-content">
-                                <h4>Возврат товара надлежащего качества</h4>
-                                <p>Сроки, требования и процедура возврата товаров, купленных на маркетплейсах</p>
-                                <div class="article-tags">
-                                    <span class="tag">Возврат товаров</span>
-                                    <span class="tag">7 дней</span>
-                                    <span class="tag">Качество</span>
+                        {% for article in articles %}
+                            <div class="article-card">
+                                <div class="article-icon">
+                                    <i class="{{ article.icon_class }}"></i>
                                 </div>
-                                <a href="{% url 'marketplace_rights' %}" class="btn btn-primary btn-sm">Читать статью</a>
-                            </div>
-                        </div>
+                                <div class="article-content">
+                                    <h4>{{ article.title }}</h4>
+                                    <p>{{ article.description }}</p>
+                                    <div class="article-tags">
+                                        {% for tag in article.tags_list %}
+                                            <span class="tag">{{ tag }}</span>
+                                        {% endfor %}
 
-                        <div class="article-card">
-                            <div class="article-icon">
-                                <i class="fas fa-times-circle"></i>
-                            </div>
-                            <div class="article-content">
-                                <h4>Отмена заказа продавцом</h4>
-                                <p>Что делать, если продавец или маркетплейс отменил ваш заказ в одностороннем порядке</p>
-                                <div class="article-tags">
-                                    <span class="tag">Отмена заказа</span>
-                                    <span class="tag">Права покупателя</span>
-                                    <span class="tag">Компенсация</span>
+                                    </div>
+                                    <a href="{% url article.url_name %}" class="btn btn-primary btn-sm">Читать статью</a>
                                 </div>
-                                <a href="{% url 'order_cancellation' %}" class="btn btn-primary btn-sm">Читать статью</a>
                             </div>
-                        </div>
-
-                        <div class="article-card">
-                            <div class="article-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="article-content">
-                                <h4>Ошибочная цена товара</h4>
-                                <p>Может ли продавец отказаться от исполнения договора из-за технической ошибки в цене</p>
-                                <div class="article-tags">
-                                    <span class="tag">Ошибка цены</span>
-                                    <span class="tag">Публичная оферта</span>
-                                    <span class="tag">Договор</span>
-                                </div>
-                                <a href="{% url 'price_error' %}" class="btn btn-primary btn-sm">Читать статью</a>
-                            </div>
-                        </div>
+                        {% empty %}
+                            <p>Статей не найдено.</p>
+                        {% endfor %}
                     </div>
+
                 </div>
             </div>
         </div>
@@ -104,6 +93,40 @@
 </div>
 
 <style>
+input.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 5px 1px var(--primary-color); /* Цвет Bootstrap primary, можно заменить на ваш */
+    border-color: #0d6efd;
+}
+
+#clearSearch {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: #e0e0e0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 28px;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* высокий z-index */
+  pointer-events: auto; /* обеспечить кликабельность */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#clearSearch:hover {
+  background-color: #ced4da;
+  color: #495057;
+}
+
 .topic-section {
     margin-bottom: 40px;
 }
@@ -214,3 +237,4 @@
 }
 </style>
 {% endblock %}
+
