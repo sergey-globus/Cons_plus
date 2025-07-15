@@ -73,7 +73,7 @@ EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'market.nadzor.portal@mail.ru'
-EMAIL_HOST_PASSWORD = '***'
+EMAIL_HOST_PASSWORD = 'LPWJZbsrZacIO7zVFCTm'
 DEFAULT_FROM_EMAIL = 'market.nadzor.portal@mail.ru'  
 SERVER_EMAIL = 'market.nadzor.portal@mail.ru'  
 

@@ -27,7 +27,6 @@ class Consultation(models.Model):
     """
     Модель для хранения заявок на консультацию с автоматическим шифрованием персональных данных
     """
-    # Зашифрованные поля (хранятся в БД)
     _first_name = models.CharField(
         max_length=255, 
         verbose_name="Имя (зашифровано)",
@@ -44,7 +43,6 @@ class Consultation(models.Model):
         db_column='email'
     )
     
-    # Нешифруемые поля
     question = models.TextField(verbose_name="Вопрос")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     is_processed = models.BooleanField(default=False, verbose_name="Обработано")
@@ -57,14 +55,12 @@ class Consultation(models.Model):
     def __str__(self):
         return f"Заявка #{self.id} от {self.created_at.strftime('%d.%m.%Y')}"
 
-    # Свойства для работы с расшифрованными данными
     @property
     def first_name(self):
         """Возвращает расшифрованное имя"""
         try:
             return GOSTCrypto().decrypt(self._first_name)
         except Exception as e:
-            # Логирование ошибки при необходимости
             return f"Ошибка дешифровки: {str(e)}"
 
     @first_name.setter
@@ -131,7 +127,6 @@ class Consultation(models.Model):
             )
             return True
         except Exception as e:
-            # Логирование ошибки отправки
             return False
 
 class DocumentTemplate(models.Model):
@@ -157,3 +152,32 @@ class DocumentTemplate(models.Model):
     def set_required_fields(self, fields_list):
         """Установить список обязательных полей"""
         self.required_fields_json = json.dumps(fields_list)
+
+    def get_translated_fields(self):
+        """Возвращает переведенные поля только для используемых в этом шаблоне"""
+        FIELD_TRANSLATIONS = {
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'middle_name': 'Отчество',
+            'passport_number': 'Номер паспорта',
+            'phone': 'Телефон',
+            'email': 'Email',
+            'date': 'Дата',
+            'order_number': 'Номер заказа',
+            'address': 'Адрес',
+            'seller_name': 'Наименование продавца',
+            'product_name': 'Наименование товара',
+            'product_price': 'Стоимость товара',
+            'product_article': 'Артикул товара',
+            'purchase_date': 'Дата покупки',
+            'order_amount': 'Сумма заказа',
+            'date_order': 'Дата заказа',
+            'return_reason': 'Причина возврата',
+            'violation_description': 'Описание нарушения',
+            'demands': 'Ваши требования'
+        }
+        
+        return [
+            {'eng_name': field, 'rus_name': FIELD_TRANSLATIONS.get(field, field)}
+            for field in self.required_fields
+        ]

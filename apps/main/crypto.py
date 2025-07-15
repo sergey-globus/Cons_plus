@@ -8,7 +8,7 @@ from django.conf import settings
 class GOSTCrypto:
     def __init__(self):
         key_hex = settings.ENCRYPTION_KEY
-        self.key = bytes.fromhex(key_hex)  # Конвертируем hex в байты
+        self.key = bytes.fromhex(key_hex) 
         if len(self.key) != 32:
             raise ValueError(f"Encryption key must be 32 bytes long for AES-256. Got {len(self.key)} bytes")
 

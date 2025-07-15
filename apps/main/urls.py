@@ -13,4 +13,5 @@ urlpatterns = [
     path('order-cancellation/', views.order_cancellation, name='order_cancellation'),
     path('price-error/', views.price_error, name='price_error'),
     path('glossary/', views.glossary, name='glossary'),
+    path('template/preview/<int:template_id>/', views.preview_template, name='preview_template'),
 ]

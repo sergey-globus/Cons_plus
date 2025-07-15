@@ -14,6 +14,7 @@ from io import BytesIO
 import os
 from docx import Document
 from docx.shared import Inches
+from django.shortcuts import get_object_or_404
 
 def index(request):
     return render(request, 'main/index.html')
@@ -40,7 +41,7 @@ def consultation(request):
             Благодарим вас за обращение на наш правовой портал!
             Ваш вопрос: "{consultation.question[:50]}..."
             
-            Наши юристы рассмотрят вашу заявку в ближайшее время и свяжутся с вами по email.
+            Наши юристы рассмотрят вашу заявку в ближайшее время и свяжутся с вами в течение 3 дней.
             
             С уважением,
             Команда Правового портала
@@ -51,18 +52,28 @@ def consultation(request):
                     subject,
                     message,
                     settings.DEFAULT_FROM_EMAIL,
-                    [email],  # Используем расшифрованный email
+                    [email], 
                     fail_silently=False,
                 )
                 messages.success(request, 'Ваша заявка принята! На ваш email отправлено подтверждение.')
             except Exception as e:
                 messages.error(request, f'Произошла ошибка при отправке email: {str(e)}')
-                # Можно также залогировать ошибку
+                
             
             return redirect('consultation')
     else:
         form = ConsultationForm()
     return render(request, 'main/consultation.html', {'form': form})
+
+def preview_template(request, template_id):
+    template = get_object_or_404(DocumentTemplate, id=template_id)
+    
+    context = {
+        'template': template,
+        'translated_fields': template.get_translated_fields()
+    }
+    
+    return render(request, 'main/preview_template.html', context)
 
 def document_generator(request):
     if request.method == 'POST':
