@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Неверная цена - МаркетНадзор{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Неверная цена</h1>
+                <p class="lead text-center">Что делать если цена товара указана с ошибкой</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-icon" style="background: linear-gradient(45deg, var(--accent-color), var(--info-color))">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="article-content">
+                        <h4>Ошибочная цена товара</h4>
+                        <p>Ваши права при обнаружении ошибки в цене товара на маркетплейсе</p>
+                        <div class="article-tags">
+                            <span class="tag">Цена</span>
+                            <span class="tag">Оферта</span>
+                            <span class="tag">Договор</span>
+                        </div>
+                        <a href="{% url 'price_error' %}" class="btn btn-primary btn-sm">Читать статью</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="sidebar">
+                <div class="card">
+                    <div class="card-header bg-warning text-white">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Сложная ситуация с ценой? Мы поможем!</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Консультация юриста</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-file-alt"></i> Документы</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Создайте претензию по поводу ошибочной цены</p>
+                        <a href="{% url 'document_generator' %}" class="btn btn-outline-primary btn-block">Создать документ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

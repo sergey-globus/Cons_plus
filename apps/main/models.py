@@ -181,3 +181,23 @@ class DocumentTemplate(models.Model):
             {'eng_name': field, 'rus_name': FIELD_TRANSLATIONS.get(field, field)}
             for field in self.required_fields
         ]
+    
+class ArticleCategory(models.Model):
+    slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=100)
+    icon = models.CharField(max_length=50)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class Article(models.Model):
+    category = models.ForeignKey(ArticleCategory, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

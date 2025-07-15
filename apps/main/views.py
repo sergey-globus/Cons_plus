@@ -305,3 +305,31 @@ def price_error(request):
 def glossary(request):
     """Глоссарий правовых терминов"""
     return render(request, 'main/glossary.html')
+
+def reference_materials(request):
+    """Главная страница справочных материалов"""
+    return render(request, 'main/reference_materials.html')
+
+def price_category(request):
+    """Категория 'Неверная цена'"""
+    return render(request, 'main/price.html')
+
+def return_category(request):
+    """Категория 'Возврат товара'"""
+    return render(request, 'main/return.html')
+
+def seller_category(request):
+    """Категория 'Проблема с продавцом'"""
+    return render(request, 'main/seller.html')
+
+def delivery_category(request):
+    """Категория 'Не привезли товар'"""
+    return render(request, 'main/delivery.html')
+
+def damaged_category(request):
+    """Категория 'Поврежденный товар'"""
+    return render(request, 'main/damaged.html')
+
+def delivery_terms_category(request):
+    """Категория 'Условия доставки'"""
+    return render(request, 'main/delivery_terms.html')

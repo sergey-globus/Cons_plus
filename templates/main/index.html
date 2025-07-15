@@ -1,48 +1,218 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Главная - Правовой портал{% endblock %}
+{% block title %}МаркетНадзор - Помощь с проблемами на маркетплейсах{% endblock %}
 
 {% block content %}
 <div class="hero-section">
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">Добро пожаловать в Правовой портал</h1>
-        <p class="lead mb-4">Получите квалифицированную юридическую помощь онлайн</p>
-        <a href="{% url 'reference_materials' %}" class="btn btn-light btn-lg">Вопросы и ответы</a>
+    <div class="container text-center py-4">  <!-- Уменьшил padding по вертикали -->
+        <h1 class="display-5 mb-2">МаркетНадзор</h1>  <!-- Уменьшил размер заголовка -->
+        <p class="lead mb-3">Помощь с проблемами на маркетплейсах</p>  <!-- Уменьшил отступ -->
+        <a href="{% url 'reference_materials' %}" class="btn btn-warning btn-lg">
+            <i class="fas fa-search mr-2"></i> Найди свою ситуацию
+        </a>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Консультации</h5>
-                    <p class="card-text">Получите профессиональную юридическую консультацию от наших экспертов</p>
-                    <a href="{% url 'consultation' %}" class="btn btn-primary">Задать вопрос</a>
+<div class="container my-4">  <!-- Уменьшил отступ -->
+    <h2 class="text-center mb-4">Частые проблемы</h2>  <!-- Уменьшил отступ -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Плашка 1: Не привезли товар -->
+        <div class="col">
+            <div class="category-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="category-title">Не привезли товар</h3>
+                    <p class="category-description">Что делать если заказ не доставили</p>
+                    <a href="{% url 'delivery_category' %}" class="btn btn-outline-warning stretched-link">
+                        Подробнее
+                    </a>
                 </div>
             </div>
         </div>
         
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Генератор документов</h5>
-                    <p class="card-text">Создавайте юридические документы по готовым шаблонам</p>
-                    <a href="{% url 'document_generator' %}" class="btn btn-primary">Создать документ</a>
+        <!-- Плашка 2: Возврат товара -->
+        <div class="col">
+            <div class="category-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--info-color), var(--consultant-blue))">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3 class="category-title">Возврат товара</h3>
+                    <p class="category-description">Как вернуть товар и получить деньги</p>
+                    <a href="{% url 'return_category' %}" class="btn btn-outline-info stretched-link">
+                        Подробнее
+                    </a>
                 </div>
             </div>
         </div>
         
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Правовые новости</h5>
-                    <p class="card-text">Следите за изменениями в законодательстве</p>
-                    <a href="{% url 'legal_news' %}" class="btn btn-primary">Читать новости</a>
+        <!-- Плашка 3: Проблема с продавцом -->
+        <div class="col">
+            <div class="category-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon mb-3" style="background: var(--help-gradient)">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="category-title">Проблема с продавцом</h3>
+                    <p class="category-description">Конфликты и недобросовестные продавцы</p>
+                    <a href="{% url 'seller_category' %}" class="btn btn-outline-danger stretched-link">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Плашка 4: Поврежденный товар -->
+        <div class="col">
+            <div class="category-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--danger-color), var(--primary-color))">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h3 class="category-title">Поврежденный товар</h3>
+                    <p class="category-description">Если товар пришел с дефектами</p>
+                    <a href="{% url 'damaged_category' %}" class="btn btn-outline-primary stretched-link">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Плашка 5: Неверная цена -->
+        <div class="col">
+            <div class="category-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--accent-color), var(--info-color))">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3 class="category-title">Неверная цена</h3>
+                    <p class="category-description">Если цена не соответствует заявленной</p>
+                    <a href="{% url 'price_category' %}" class="btn btn-outline-info stretched-link">
+                        Подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Плашка 6: Условия доставки -->
+        <div class="col">
+            <div class="category-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--primary-color), var(--warning-color))">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="category-title">Условия доставки</h3>
+                    <p class="category-description">Сроки, стоимость и проблемы доставки</p>
+                    <a href="{% url 'delivery_terms_category' %}" class="btn btn-outline-warning stretched-link">
+                        Подробнее
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 3rem 0;  /* Уменьшил padding */
+    margin-bottom: 2rem;  /* Уменьшил отступ */
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.category-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    background: white;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 174, 0, 0.15);
+}
+
+.category-icon {
+    width: 70px;  /* Уменьшил размер */
+    height: 70px;  /* Уменьшил размер */
+    margin: 0 auto 1rem;  /* Уменьшил отступ */
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;  /* Уменьшил размер иконки */
+    transition: all 0.3s ease;
+}
+
+.category-title {
+    color: var(--text-color);
+    margin: 0.75rem 0;  /* Уменьшил отступ */
+    font-weight: 600;
+    font-size: 1.25rem;  /* Уменьшил размер */
+}
+
+.category-description {
+    color: var(--secondary-color);
+    margin-bottom: 1.25rem;  /* Уменьшил отступ */
+    font-size: 0.9rem;  /* Уменьшил размер */
+    min-height: 2.5rem;  /* Уменьшил высоту */
+}
+
+.btn-warning {
+    background: linear-gradient(45deg, var(--primary-color), var(--warning-color));
+    border: none;
+    padding: 0.6rem 1.5rem;  /* Уменьшил padding */
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
+    transition: all 0.3s ease;
+    font-size: 1rem;  /* Уменьшил размер */
+    color: #212529;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+    background: linear-gradient(45deg, var(--warning-color), var(--primary-color));
+}
+
+.btn-outline-warning {
+    padding: 0.4rem 1rem;  /* Уменьшил padding */
+    font-size: 0.9rem;  /* Уменьшил размер */
+}
+
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+    
+    h1.display-5 {
+        font-size: 2rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+    }
+}
+</style>
 {% endblock %}
