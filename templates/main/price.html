@@ -6,58 +6,142 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="hero-section-small text-white rounded p-4 mb-5">
-                <h1 class="display-5 text-center">Неверная цена</h1>
-                <p class="lead text-center">Что делать если цена товара указана с ошибкой</p>
+            <div class="hero-section-small text-white rounded p-4 mb-4" style="background: linear-gradient(135deg, var(--accent-color), var(--info-color))">
+                <h1 class="display-5 text-center mb-2">Неверная цена</h1>
+                <p class="lead text-center mb-0">Что делать если цена товара указана с ошибкой</p>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="articles-grid">
+        <div class="col-lg-8">
+            <div class="article-card-wrapper">
                 <div class="article-card">
-                    <div class="article-icon" style="background: linear-gradient(45deg, var(--accent-color), var(--info-color))">
+                    <div class="article-icon bg-accent-gradient">
                         <i class="fas fa-tag"></i>
                     </div>
-                    <div class="article-content">
-                        <h4>Ошибочная цена товара</h4>
-                        <p>Ваши права при обнаружении ошибки в цене товара на маркетплейсе</p>
-                        <div class="article-tags">
-                            <span class="tag">Цена</span>
-                            <span class="tag">Оферта</span>
-                            <span class="tag">Договор</span>
+                    <div class="article-body">
+                        <h3 class="article-title">Ошибочная цена товара</h3>
+                        <p class="article-text">Ваши права при обнаружении ошибки в цене товара на маркетплейсе</p>
+                        <div class="article-meta">
+                            <div class="tags">
+                                <span class="tag">Цена</span>
+                                <span class="tag">Оферта</span>
+                                <span class="tag">Договор</span>
+                            </div>
+                            <a href="{% url 'price_error' %}" class="btn btn-primary btn-sm">Читать статью</a>
                         </div>
-                        <a href="{% url 'price_error' %}" class="btn btn-primary btn-sm">Читать статью</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="sidebar">
-                <div class="card">
-                    <div class="card-header bg-warning text-white">
-                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Сложная ситуация с ценой? Мы поможем!</p>
-                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Консультация юриста</a>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-header bg-primary text-white">
-                        <h5><i class="fas fa-file-alt"></i> Документы</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Создайте претензию по поводу ошибочной цены</p>
-                        <a href="{% url 'document_generator' %}" class="btn btn-outline-primary btn-block">Создать документ</a>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-4">
+            <!-- Боковая панель такая же как в return_category.html -->
         </div>
     </div>
 </div>
 
+<style>
+.bg-accent-gradient {
+    background: linear-gradient(45deg, var(--accent-color), var(--info-color));
+}
+
+.hero-section-small {
+    background: linear-gradient(135deg, var(--info-color), var(--consultant-blue));
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.article-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.article-content {
+    flex: 1;
+}
+
+.article-content h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.article-content p {
+    color: #6c757d;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.article-tags {
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(135, 206, 250, 0.3);
+    color: var(--info-color);
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    margin-bottom: 5px;
+    border: 1px solid var(--info-light);
+}
+
+.sidebar .card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+
+.sidebar .card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: none;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .article-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .article-icon {
+        align-self: center;
+    }
+}
+</style>
 {% endblock %}
