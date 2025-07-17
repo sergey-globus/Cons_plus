@@ -20,4 +20,5 @@ urlpatterns = [
     path('reference/delivery-terms/', views.delivery_terms_category, name='delivery_terms_category'),
     path('glossary/', views.glossary, name='glossary'),
     path('template/preview/<int:template_id>/', views.preview_template, name='preview_template'),
+    path('download-empty-template/<int:template_id>/', views.download_empty_template, name='download_empty_template'),
 ]

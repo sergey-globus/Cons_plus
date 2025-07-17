@@ -14,8 +14,9 @@ from io import BytesIO
 import os
 from docx import Document
 from docx.shared import Inches
-from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from docx.shared import Pt, Cm  
 
 
 def index(request):
@@ -354,3 +355,44 @@ def damaged_category(request):
 def delivery_terms_category(request):
     """Категория 'Условия доставки'"""
     return render(request, 'main/delivery_terms.html')
+
+def download_empty_template(request, template_id):
+    template = get_object_or_404(DocumentTemplate, id=template_id)
+    
+    doc = Document()
+
+    style = doc.styles['Normal']
+    font = style.font
+    font.name = 'Times New Roman'
+    font.size = Pt(12)
+
+    content = template.template_content
+
+    for field in template.required_fields:
+        content = content.replace(f'{{{field}}}', '        ') 
+    
+    for paragraph in content.split('\n'):
+        if paragraph.strip():
+            p = doc.add_paragraph()
+            runs = paragraph.split('        ')  
+            
+            for i, run_text in enumerate(runs):
+                if run_text:
+                    p.add_run(run_text)
+
+                if i < len(runs) - 1:
+                    p.add_run().add_tab()
+
+    for paragraph in doc.paragraphs:
+        paragraph.paragraph_format.tab_stops.add_tab_stop(Cm(4))  
+    
+    buffer = BytesIO()
+    doc.save(buffer)
+    buffer.seek(0)
+    
+    response = HttpResponse(
+        buffer.getvalue(),
+        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    )
+    response['Content-Disposition'] = f'attachment; filename="Пустой_{template.name}.docx"'
+    return response
