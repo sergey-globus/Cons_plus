@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Досудебный порядок в спорах с маркетплейсами - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Является ли обязательным <span class="def-tooltip def1">претензионный порядок</span> в спорах по защите прав потребителей?</h1>
+                <p class="lead text-center">Когда нужно направлять претензию перед обращением в суд</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <article class="legal-article">
+                <div class="legal-text">
+                    <div class="important-principle">
+                        <h3><i class="fas fa-balance-scale"></i> Основное правило</h3>
+                        <p>В рамках споров, связанных с заказами на маркетплейсах, досудебный претензионный порядок <strong>не является обязательным</strong>, за исключением специально установленных законом случаев.</p>
+                    </div>
+
+                    <h2 class="section-title">Когда досудебный порядок обязателен?</h2>
+                    
+                    <div class="rights-list">
+                        <div class="right-item">
+                            <div class="right-number">1</div>
+                            <div class="right-content">
+                                <h4>Услуги связи</h4>
+                                <p>Споры с операторами связи об исполнении договорных обязательств</p>
+                                <div class="law-reference">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span>Пункт 4 статьи 55 Закона от 07.07.2003 N 126-ФЗ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">2</div>
+                            <div class="right-content">
+                                <h4>Перевозки</h4>
+                                <p>Претензии, связанные с перевозкой груза, пассажира, багажа</p>
+                                <div class="law-reference">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span>Пункт 1 статьи 797 ГК РФ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">3</div>
+                            <div class="right-content">
+                                <h4>Туристские услуги</h4>
+                                <p>Претензии по качеству туристского продукта к туроператорам</p>
+                                <div class="law-reference">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span>Часть 2 статьи 10 Закона от 24.11.1996 N 132-ФЗ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Важно!</h4>
+                        <p>Если продавец включил в договор условие об обязательном досудебном порядке - такое условие является недействительным, так как ограничивает права потребителя.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Пункт 2 статьи 16 ЗоЗПП, Определение Верховного Суда РФ от 5 февраля 2019 г. N 49-КГ18-61</span>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">Почему все же стоит направить претензию?</h2>
+
+                    <div class="action-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Экономия времени</h4>
+                                <p>Продавец может добровольно удовлетворить ваши требования без суда</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Доказательство в суде</h4>
+                                <p>Ответ на претензию может стать важным доказательством вашей правоты</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Подготовка к суду</h4>
+                                <p>Позволяет заранее узнать позицию продавца и подготовить контраргументы</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conclusion">
+                        <h3><i class="fas fa-gavel"></i> Вывод</h3>
+                        <p><strong>Хотя досудебный претензионный порядок в большинстве споров с маркетплейсами не является обязательным, направление претензии может значительно упростить и ускорить процесс защиты ваших прав.</strong></p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-black">
+                        <h5><i class="fas fa-info-circle"></i> Шаблон претензии</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'preview_template' 1 %}" class="btn btn-warning btn-block btn-consult">Открыть шаблон</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const def1 = "Определение: Процедура урегулирования спора между сторонами конфликта до обращения в суд, обычно путем направления письменной претензии с изложением требований.";
+    const elements = document.getElementsByClassName("def1");
+    for (let el of elements) {
+      el.setAttribute("data-tooltip", def1);
+    }
+</script>
+{% endblock %}
