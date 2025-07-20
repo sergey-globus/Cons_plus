@@ -1,76 +1,65 @@
 {% extends 'base.html' %}
 
-{% block title %}Проблема с продавцом - МаркетНадзор{% endblock %}
+{% block title %}Проблемы с продавцом - Правовой портал{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="hero-section-small text-white rounded p-4 mb-5" style="background: linear-gradient(135deg, var(--danger-color), var(--primary-color))">
-                <h1 class="display-5 text-center">Проблема с продавцом</h1>
-                <p class="lead text-center">Как решить конфликт с продавцом на маркетплейсе</p>
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Проблемы с продавцом</h1>
+                <p class="lead text-center">Решение конфликтов и споров с продавцами на маркетплейсах</p>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="articles-grid">
-                <div class="article-card">
-                    <div class="article-icon" style="background: var(--help-gradient)">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="article-content">
-                        <h4>Отмена заказа продавцом</h4>
-                        <p>Что делать, если продавец или маркетплейс отменил ваш заказ в одностороннем порядке</p>
-                        <div class="article-tags">
-                            <span class="tag">Отмена заказа</span>
-                            <span class="tag">Права покупателя</span>
-                            <span class="tag">Компенсация</span>
-                        </div>
-                        <a href="{% url 'order_cancellation' %}" class="btn btn-primary btn-sm">Читать статью</a>
+        <div class="col-md-8">
+            <div class="materials-grid">
+                <div class="topic-section">
+                    <div class="articles-grid">
+                        {% for article in articles %}
+                            {% if "продавец" in article.tags|lower or "отмена" in article.tags|lower or "оферта" in article.tags|lower %}
+                            <div class="article-card">
+                                <div class="article-icon">
+                                    <i class="{{ article.icon_class }}"></i>
+                                </div>
+                                <div class="article-content">
+                                    <h4>{{ article.title }}</h4>
+                                    <p>{{ article.description }}</p>
+                                    <div class="article-tags">
+                                        {% for tag in article.tags_list %}
+                                            <span class="tag">{{ tag }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <a href="{% url article.url_name %}" class="btn btn-primary btn-sm">Читать статью</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% empty %}
+                            <p>Статей не найдено.</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="sidebar">
-                <div class="card">
-                    <div class="card-header bg-warning text-white">
-                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Конфликт с продавцом? Мы поможем его разрешить!</p>
-                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Консультация юриста</a>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-header bg-primary text-white">
-                        <h5><i class="fas fa-file-alt"></i> Документы</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Создайте претензию к продавцу</p>
-                        <a href="{% url 'document_generator' %}" class="btn btn-outline-primary btn-block">Создать документ</a>
-                    </div>
-                </div>
-            </div>
+            <!-- Боковая панель из предыдущего шаблона -->
+            {% include 'main/articles_sidebar.html' %}
         </div>
     </div>
 </div>
 
 <style>
-.hero-section-small {
-    background: linear-gradient(135deg, var(--info-color), var(--consultant-blue));
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.topic-section {
+    margin-bottom: 40px;
 }
 
 .articles-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px;
-    margin-bottom: 40px;
 }
 
 .article-card {
@@ -94,6 +83,7 @@
     flex-shrink: 0;
     width: 60px;
     height: 60px;
+    background: linear-gradient(45deg, var(--info-color), var(--info-light));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -133,18 +123,6 @@
     margin-right: 8px;
     margin-bottom: 5px;
     border: 1px solid var(--info-light);
-}
-
-.sidebar .card {
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 15px;
-}
-
-.sidebar .card-header {
-    border-radius: 15px 15px 0 0 !important;
-    border-bottom: none;
-    font-weight: 600;
 }
 
 @media (max-width: 768px) {

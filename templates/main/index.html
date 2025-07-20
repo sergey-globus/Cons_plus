@@ -14,7 +14,7 @@
 </div>
 
 <div class="container my-4">  <!-- Уменьшил отступ -->
-    <h2 class="text-center mb-4">Частые проблемы</h2>  <!-- Уменьшил отступ -->
+    <h2 class="text-center mb-4">Категории проблем</h2>  <!-- Уменьшил отступ -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <!-- Плашка 1: Не привезли товар -->
         <div class="col">
@@ -23,7 +23,7 @@
                     <div class="category-icon mb-3">
                         <i class="fas fa-truck"></i>
                     </div>
-                    <h3 class="category-title">Не привезли товар</h3>
+                    <h3 class="category-title">Проблемы с доставкой</h3>
                     <p class="category-description">Что делать если заказ не доставили</p>
                     <a href="{% url 'delivery_category' %}" class="btn btn-outline-warning stretched-link">
                         Подробнее
@@ -39,8 +39,8 @@
                     <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--info-color), var(--consultant-blue))">
                         <i class="fas fa-undo"></i>
                     </div>
-                    <h3 class="category-title">Возврат товара</h3>
-                    <p class="category-description">Как вернуть товар и получить деньги</p>
+                    <h3 class="category-title">Проблемы с товаром</h3>
+                    <p class="category-description">Качество, возврат и другое</p>
                     <a href="{% url 'return_category' %}" class="btn btn-outline-info stretched-link">
                         Подробнее
                     </a>
@@ -55,57 +55,9 @@
                     <div class="category-icon mb-3" style="background: var(--help-gradient)">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h3 class="category-title">Проблема с продавцом</h3>
+                    <h3 class="category-title">Проблемы с продавцом</h3>
                     <p class="category-description">Конфликты и недобросовестные продавцы</p>
                     <a href="{% url 'seller_category' %}" class="btn btn-outline-danger stretched-link">
-                        Подробнее
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Плашка 4: Поврежденный товар -->
-        <div class="col">
-            <div class="category-card h-100">
-                <div class="card-body text-center p-4">
-                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--danger-color), var(--primary-color))">
-                        <i class="fas fa-box-open"></i>
-                    </div>
-                    <h3 class="category-title">Поврежденный товар</h3>
-                    <p class="category-description">Если товар пришел с дефектами</p>
-                    <a href="{% url 'damaged_category' %}" class="btn btn-outline-primary stretched-link">
-                        Подробнее
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Плашка 5: Неверная цена -->
-        <div class="col">
-            <div class="category-card h-100">
-                <div class="card-body text-center p-4">
-                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--accent-color), var(--info-color))">
-                        <i class="fas fa-tag"></i>
-                    </div>
-                    <h3 class="category-title">Неверная цена</h3>
-                    <p class="category-description">Если цена не соответствует заявленной</p>
-                    <a href="{% url 'price_category' %}" class="btn btn-outline-info stretched-link">
-                        Подробнее
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Плашка 6: Условия доставки -->
-        <div class="col">
-            <div class="category-card h-100">
-                <div class="card-body text-center p-4">
-                    <div class="category-icon mb-3" style="background: linear-gradient(45deg, var(--primary-color), var(--warning-color))">
-                        <i class="fas fa-shipping-fast"></i>
-                    </div>
-                    <h3 class="category-title">Условия доставки</h3>
-                    <p class="category-description">Сроки, стоимость и проблемы доставки</p>
-                    <a href="{% url 'delivery_terms_category' %}" class="btn btn-outline-warning stretched-link">
                         Подробнее
                     </a>
                 </div>

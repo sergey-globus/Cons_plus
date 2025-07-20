@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}Составление искового заявления - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Как составить <span class="def-tooltip def1">исковое заявление</span>?</h1>
+                <p class="lead text-center">Пошаговая инструкция по подготовке иска в суд</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <article class="legal-article">
+                <div class="legal-text">
+                    <h2 class="section-title">1. Определение сторон</h2>
+                    
+                    <div class="important-principle">
+                        <h3><i class="fas fa-user-tie"></i> Истец</h3>
+                        <p>Покупатель, чьи права потребителя были нарушены при покупке на маркетплейсе.</p>
+                    </div>
+
+                    <div class="important-principle mt-4">
+                        <h3><i class="fas fa-user-shield"></i> Ответчик</h3>
+                        <p>Может быть:</p>
+                        <ul>
+                            <li>Продавец товара (указан в карточке товара или электронном чеке)</li>
+                            <li>Маркетплейс (в отдельных случаях)</li>
+                        </ul>
+                    </div>
+
+                    <h2 class="section-title">2. Структура искового заявления</h2>
+
+                    <div class="action-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Вводная часть</h4>
+                                <ul>
+                                    <li>Наименование суда</li>
+                                    <li>Сведения об истце и ответчике</li>
+                                    <li>Цена иска (если требование имущественное)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Описательная часть</h4>
+                                <p>Подробное изложение обстоятельств:</p>
+                                <ul>
+                                    <li>Дата и предмет покупки</li>
+                                    <li>Суть нарушения прав</li>
+                                    <li>Попытки досудебного урегулирования</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Мотивировочная часть</h4>
+                                <p>Правовое обоснование требований со ссылками на:</p>
+                                <ul>
+                                    <li>Закон о защите прав потребителей</li>
+                                    <li>Гражданский кодекс РФ</li>
+                                    <li>Иные нормативные акты</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Просительная часть</h4>
+                                <p>Четко сформулированные требования к ответчику:</p>
+                                <ul>
+                                    <li>Возврат денежных средств</li>
+                                    <li>Компенсация убытков</li>
+                                    <li>Взыскание неустойки</li>
+                                    <li>Компенсация морального вреда</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">3. Необходимые документы</h2>
+                    
+                    <div class="rights-list">
+                        <div class="right-item">
+                            <div class="right-number">1</div>
+                            <div class="right-content">
+                                <h4>Доказательства покупки</h4>
+                                <p>Чеки, скриншоты заказа, выписки из банка</p>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">2</div>
+                            <div class="right-content">
+                                <h4>Доказательства нарушения</h4>
+                                <p>Фото/видео дефектов, переписка с продавцом</p>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">3</div>
+                            <div class="right-content">
+                                <h4>Претензия и ответ</h4>
+                                <p>Копии досудебной претензии и ответа на нее</p>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">4</div>
+                            <div class="right-content">
+                                <h4>Расчет требований</h4>
+                                <p>Подробный расчет суммы иска</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">4. Куда подавать иск?</h2>
+
+                    <div class="alert alert-info">
+                        <h4><i class="fas fa-info-circle"></i> Подсудность</h4>
+                        <p>Потребитель может выбрать суд:</p>
+                        <ul>
+                            <li>По месту своего жительства</li>
+                            <li>По месту нахождения ответчика</li>
+                            <li>По месту заключения/исполнения договора</li>
+                        </ul>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Часть 7 статьи 29 ГПК РФ, пункт 2 статьи 17 ЗоЗПП</span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <h4><i class="fas fa-check-circle"></i> Важно!</h4>
+                        <p>Потребители освобождаются от уплаты государственной пошлины по искам о защите прав потребителей.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Пункт 3 статьи 17 ЗоЗПП</span>
+                        </div>
+                    </div>
+
+                    <div class="conclusion">
+                        <h3><i class="fas fa-gavel"></i> Вывод</h3>
+                        <p><strong>Грамотно составленное исковое заявление с полным пакетом документов значительно увеличивает шансы на успешное разрешение спора в суде. Для подготовки иска вы можете воспользоваться нашим конструктором документов или обратиться за профессиональной помощью.</strong></p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-black">
+                        <h5><i class="fas fa-info-circle"></i> Конструктор иска</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'preview_template' 1 %}" class="btn btn-warning btn-block btn-consult">Открыть конструктор</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-info text-white">
+                        <h5><i class="fas fa-link"></i> Полезные ссылки</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Образцы исковых заявлений</a></li>
+                            <li><a href="#">Как подать иск онлайн</a></li>
+                            <li><a href="#">Судебная практика</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const def1 = "Определение: Письменное обращение в суд с требованием о защите нарушенного или оспариваемого права или охраняемого законом интереса.";
+    const elements = document.getElementsByClassName("def1");
+    for (let el of elements) {
+      el.setAttribute("data-tooltip", def1);
+    }
+</script>
+{% endblock %}

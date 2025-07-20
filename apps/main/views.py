@@ -338,15 +338,52 @@ def price_category(request):
 
 def return_category(request):
     """Категория 'Возврат товара'"""
-    return render(request, 'main/return.html')
+    articles = FAQ.objects.filter(tags__icontains='Товар') | \
+               FAQ.objects.filter(tags__icontains='Качество') | \
+               FAQ.objects.filter(tags__icontains='Брак') | \
+               FAQ.objects.filter(tags__icontains='Упаковка')
+    
+    # Добавляем tags_list к каждому объекту
+    for article in articles:
+        article.tags_list = [tag.strip() for tag in article.tags.split(',')]
+    
+    context = {
+        'articles': articles,
+        'page_title': 'Проблемы с товаром',
+        'page_description': 'Решение проблем, связанных с качеством и характеристиками товаров'
+    }
+    return render(request, 'main/return.html', context)
 
 def seller_category(request):
     """Категория 'Проблема с продавцом'"""
-    return render(request, 'main/seller.html')
+    articles = FAQ.objects.filter(tags__icontains='Продавец') | \
+               FAQ.objects.filter(tags__icontains='Отмена') | \
+               FAQ.objects.filter(tags__icontains='Оферта')
+    
+    for article in articles:
+        article.tags_list = [tag.strip() for tag in article.tags.split(',')]
+    
+    context = {
+        'articles': articles,
+        'page_title': 'Проблемы с продавцом',
+        'page_description': 'Решение конфликтов и споров с продавцами на маркетплейсах'
+    }
+    return render(request, 'main/seller.html', context)
 
 def delivery_category(request):
     """Категория 'Не привезли товар'"""
-    return render(request, 'main/delivery.html')
+    articles = FAQ.objects.filter(tags__icontains='Доставка') | \
+               FAQ.objects.filter(tags__icontains='Получение')
+    
+    for article in articles:
+        article.tags_list = [tag.strip() for tag in article.tags.split(',')]
+    
+    context = {
+        'articles': articles,
+        'page_title': 'Проблемы с доставкой',
+        'page_description': 'Решение вопросов, связанных с доставкой товаров'
+    }
+    return render(request, 'main/delivery.html', context)
 
 def damaged_category(request):
     """Категория 'Поврежденный товар'"""
@@ -355,6 +392,33 @@ def damaged_category(request):
 def delivery_terms_category(request):
     """Категория 'Условия доставки'"""
     return render(request, 'main/delivery_terms.html')
+
+def bad_goods_delivered(request):
+    return render(request, 'main/bad_goods_delivered.html')
+
+def dosydebnii_isk(request):
+    return render(request, 'main/dosydebnii_isk.html')
+
+def isk_zyavlenie(request):
+    return render(request, 'main/isk_zyavlenie.html')
+
+def return_bad(request):
+    return render(request, 'main/return_bad.html')
+
+def return_good(request):
+    return render(request, 'main/return_good.html')
+
+def return_nevozvrat(request):
+    return render(request, 'main/return_nevozvrat.html')
+
+def return_plata(request):
+    return render(request, 'main/return_plata.html')
+
+def return_vskr_ypakovka(request):
+    return render(request, 'main/return_vskr_ypakovka.html')
+
+def wrong_price(request):
+    return render(request, 'main/wrong_price.html')
 
 def download_empty_template(request, template_id):
     template = get_object_or_404(DocumentTemplate, id=template_id)

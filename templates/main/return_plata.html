@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Платность возврата товара - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Вправе ли <span class="def-tooltip def1">продавец</span> удерживать <span class="def-tooltip def2">плату за возврат товара</span>?</h1>
+                <p class="lead text-center">Законность взимания платы за обратную доставку товара</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <article class="legal-article">
+                <div class="legal-text">
+                    <p class="lead">Правомерность платы за возврат зависит от качества возвращаемого товара:</p>
+
+                    <h2 class="section-title">1. Возврат товара надлежащего качества</h2>
+                    
+                    <div class="alert alert-info">
+                        <h4><i class="fas fa-info-circle"></i> Правомерно</h4>
+                        <p>Если товар исправен и соответствует заявленным характеристикам, но не подошел по цвету, размеру, комплектации и т.д. Вы имеете право оформить возврат. В таком случае продавец может удержать из возвращаемой покупной цены стоимость обратной доставки товара.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Пункт 4 статьи 26.1 ЗоЗПП</span>
+                            <a href="https://www.consultant.ru/document/cons_doc_LAW_305/1525b1a2f037db240c8e6a749619f86e53857f13/" target="_blank" class="btn btn-sm btn-outline-primary">Читать закон</a>
+                        </div>
+                    </div>
+
+                    <h3>Условия правомерности</h3>
+                    <ul>
+                        <li>Взимаемая с покупателя сумма не превышает фактические затраты на пересылку товара</li>
+                        <li>Продавец предоставляет подтверждение расходов на доставку</li>
+                        <li>Покупатель предупрежден о возможных расходах заранее</li>
+                    </ul>
+
+                    <h2 class="section-title">2. Возврат товара ненадлежащего качества</h2>
+                    
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Неправомерно</h4>
+                        <p>Если в товаре был обнаружен дефект, покупатель вправе отказаться от исполнения договора и потребовать возврата уплаченных продавцу денежных средств. По требованию продавца и за его счет потребитель должен вернуть товар с недостатками.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Пункт 1 статьи 18 ЗоЗПП</span>
+                            <a href="https://www.consultant.ru/document/cons_doc_LAW_305/76ae101b731ecc22467fd9f1f14cb9e2b8799026/" target="_blank" class="btn btn-sm btn-outline-primary">Читать закон</a>
+                        </div>
+                    </div>
+
+                    <h3>Права потребителя</h3>
+                    <ul>
+                        <li>Все расходы на обратную доставку несет продавец</li>
+                        <li>Потребитель не обязан компенсировать стоимость доставки</li>
+                        <li>Продавец обязан организовать и оплатить возврат товара</li>
+                    </ul>
+
+                    <div class="conclusion">
+                        <h3><i class="fas fa-gavel"></i> Вывод</h3>
+                        <p><strong>Продавец вправе удерживать плату за возврат только при возврате товара надлежащего качества. При возврате товара с недостатками все расходы по обратной доставке несет продавец.</strong></p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-black">
+                        <h5><i class="fas fa-info-circle"></i> Шаблон заявления</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'preview_template' 1 %}" class="btn btn-warning btn-block btn-consult">Открыть шаблон</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const def1 = "Определение: Лицо, которое продает или обязуется продать товар.";
+    const def2 = "Определение: Денежная сумма, взимаемая продавцом с покупателя за организацию обратной доставки товара при его возврате.";
+    const elements = document.getElementsByClassName("def1");
+    for (let el of elements) {
+      el.setAttribute("data-tooltip", def1);
+    }
+    const elements2 = document.getElementsByClassName("def2");
+    for (let el of elements2) {
+      el.setAttribute("data-tooltip", def2);
+    }
+</script>
+{% endblock %}

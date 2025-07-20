@@ -1,34 +1,44 @@
 {% extends 'base.html' %}
 
-{% block title %}Возврат товара - МаркетНадзор{% endblock %}
+{% block title %}Проблемы с товаром - Правовой портал{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="hero-section-small text-white rounded p-4 mb-5">
-                <h1 class="display-5 text-center">Возврат товара</h1>
-                <p class="lead text-center">Как вернуть товар на маркетплейс</p>
+                <h1 class="display-5 text-center">Проблемы с товаром</h1>
+                <p class="lead text-center">Решение проблем, связанных с качеством и характеристиками товаров</p>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="articles-grid">
-                <div class="article-card">
-                    <div class="article-icon" style="background: linear-gradient(45deg, var(--info-color), var(--consultant-blue))">
-                        <i class="fas fa-undo-alt"></i>
-                    </div>
-                    <div class="article-content">
-                        <h4>Правила возврата товаров</h4>
-                        <p>Полное руководство по возврату товаров на маркетплейсах: сроки, условия и порядок действий</p>
-                        <div class="article-tags">
-                            <span class="tag">14 дней</span>
-                            <span class="tag">Гарантия</span>
-                            <span class="tag">Деньги</span>
-                        </div>
-                        <a href="{% url 'marketplace_rights' %}" class="btn btn-primary btn-sm">Читать статью</a>
+        <div class="col-md-8">
+            <div class="materials-grid">
+                <div class="topic-section">
+                    <div class="articles-grid">
+                        {% for article in articles %}
+                            {% if "товар" in article.tags|lower or "качество" in article.tags|lower or "брак" in article.tags|lower %}
+                            <div class="article-card">
+                                <div class="article-icon">
+                                    <i class="{{ article.icon_class }}"></i>
+                                </div>
+                                <div class="article-content">
+                                    <h4>{{ article.title }}</h4>
+                                    <p>{{ article.description }}</p>
+                                    <div class="article-tags">
+                                        {% for tag in article.tags_list %}
+                                            <span class="tag">{{ tag }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <a href="{% url article.url_name %}" class="btn btn-primary btn-sm">Читать статью</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% empty %}
+                            <p>Статей не найдено.</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -41,18 +51,18 @@
                         <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
                     </div>
                     <div class="card-body">
-                        <p>Не можете разобраться с возвратом? Мы поможем!</p>
-                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Консультация юриста</a>
+                        <p>Не нашли ответ на свой вопрос? Обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
                     </div>
                 </div>
 
                 <div class="card mt-3">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-secondary text-white">
                         <h5><i class="fas fa-file-alt"></i> Документы</h5>
                     </div>
                     <div class="card-body">
-                        <p>Создайте заявление на возврат товара</p>
-                        <a href="{% url 'document_generator' %}" class="btn btn-outline-primary btn-block">Создать документ</a>
+                        <p>Создавайте правовые документы по готовым шаблонам.</p>
+                        <a href="{% url 'document_generator' %}" class="btn btn-outline-secondary btn-block">Генератор документов</a>
                     </div>
                 </div>
             </div>
@@ -61,16 +71,15 @@
 </div>
 
 <style>
-.hero-section-small {
-    background: linear-gradient(135deg, var(--info-color), var(--consultant-blue));
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* Стили из основной страницы статей */
+.topic-section {
+    margin-bottom: 40px;
 }
 
 .articles-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px;
-    margin-bottom: 40px;
 }
 
 .article-card {
@@ -94,6 +103,7 @@
     flex-shrink: 0;
     width: 60px;
     height: 60px;
+    background: linear-gradient(45deg, var(--info-color), var(--info-light));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -133,18 +143,6 @@
     margin-right: 8px;
     margin-bottom: 5px;
     border: 1px solid var(--info-light);
-}
-
-.sidebar .card {
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 15px;
-}
-
-.sidebar .card-header {
-    border-radius: 15px 15px 0 0 !important;
-    border-bottom: none;
-    font-weight: 600;
 }
 
 @media (max-width: 768px) {
