@@ -40,7 +40,7 @@ def consultation(request):
             subject = 'Ваша заявка на консультацию принята'
             message = f'''
             Уважаемый(ая) {first_name} {last_name},
-            
+
             Благодарим вас за обращение на наш правовой портал!
             Ваш вопрос: "{consultation.question[:50]}..."
             
