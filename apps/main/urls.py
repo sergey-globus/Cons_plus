@@ -7,7 +7,10 @@ urlpatterns = [
     path('documents/', views.document_generator, name='document_generator'),
     path('download-pdf/', views.download_pdf, name='download_pdf'),
     path('download-word/', views.download_word, name='download_word'),
+
     path('legal-news/', views.legal_news, name='legal_news'),
+    path('news/platform-economy/', views.platform_economy_news_detail, name='platform_economy_news_detail'),
+    
     path('reference/', views.reference_materials, name='reference_materials'),
  
     path('reference/return/', views.return_category, name='return_category'),

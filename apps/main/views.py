@@ -231,63 +231,22 @@ def download_word(request):
     return response
 
 def legal_news(request):
-    """Страница правовых новостей с фильтрацией"""
-    category = request.GET.get('category', 'all')
-    
+    """Страница правовых новостей (только новость о платформенной экономике)"""
     all_news = [
         {
-            'title': 'Изменения в Гражданском кодексе РФ',
-            'content': 'Вступили в силу новые изменения в ГК РФ, касающиеся защиты прав потребителей при дистанционных покупках.',
-            'published_at': '08.07.2025',
-            'source': 'Официальный портал правовой информации',
-            'url': 'http://pravo.gov.ru',
-            'category': 'consumer'
-        },
-        {
-            'title': 'Новые правила возврата товаров на маркетплейсах',
-            'content': 'Роспотребнадзор разъяснил порядок возврата товаров, приобретенных через интернет-площадки.',
-            'published_at': '07.07.2025',
-            'source': 'Роспотребнадзор',
-            'url': 'https://rospotrebnadzor.ru',
-            'category': 'consumer'
-        },
-        {
-            'title': 'Изменения в трудовом законодательстве',
-            'content': 'Приняты поправки в Трудовой кодекс РФ, касающиеся дистанционной работы и электронного документооборота.',
-            'published_at': '06.07.2025',
-            'source': 'Минтруд России',
-            'url': 'https://mintrud.gov.ru',
-            'category': 'labor'
-        },
-        {
-            'title': 'Новые требования к договорам аренды',
-            'content': 'Вступили в силу изменения в жилищном законодательстве, упрощающие процедуру заключения договоров аренды.',
-            'published_at': '05.07.2025',
-            'source': 'Минстрой России',
-            'url': 'https://minstroyrf.gov.ru',
-            'category': 'housing'
-        },
-        {
-            'title': 'Обновления в налоговом законодательстве',
-            'content': 'Федеральная налоговая служба опубликовала разъяснения по применению новых налоговых льгот для малого и среднего бизнеса.',
-            'published_at': '04.07.2025',
-            'source': 'ФНС России',
-            'url': 'https://nalog.gov.ru',
-            'category': 'tax'
+            'title': 'Государственная Дума приняла законопроект о платформенной экономике в первом чтении',
+            'content': 'Как новый законопроект защитит права продавцов и покупателей на маркетплейсах...',
+            'published_at': '21.07.2025',
+            'source': 'Государственная Дума РФ',
+            'url': '/news/platform-economy/',  # Внутренняя ссылка на полную новость
         }
     ]
     
-    if category != 'all':
-        filtered_news = [news for news in all_news if news['category'] == category]
-    else:
-        filtered_news = all_news
-    
-    news = {'articles': filtered_news}
-    
-    return render(request, 'main/legal_news.html', {
-        'news': news,
-        'current_category': category
-    })
+    return render(request, 'main/legal_news.html')
+
+def platform_economy_news_detail(request):
+    """Детальная страница новости о платформенной экономике"""
+    return render(request, 'main/platform_economy_news_detail.html')
 
 def reference_materials(request):
     query = request.GET.get('q', '').strip()
