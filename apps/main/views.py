@@ -25,18 +25,33 @@ def index(request):
 from django.core.mail import send_mail
 from django.conf import settings
 
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from .forms import ConsultationForm
+from .models import Consultation
+
 def consultation(request):
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
-            # Сохраняем форму, данные автоматически зашифруются через свойства модели
-            consultation = form.save()
+            # Проверяем, принята ли политика конфиденциальности
+            if not request.POST.get('privacy_policy'):
+                messages.error(request, 'Для отправки формы необходимо принять политику конфиденциальности')
+                return render(request, 'main/consultation.html', {'form': form})
             
-            # Получаем расшифрованные данные через свойства
+            # Сохраняем форму с отметкой о принятии политики
+            consultation = form.save()
+            consultation.privacy_policy_accepted = True
+            consultation.save()
+            
+            # Получаем расшифрованные данные через свойства модели
             first_name = consultation.first_name
             last_name = consultation.last_name
             email = consultation.email
             
+            # Формируем и отправляем email
             subject = 'Ваша заявка на консультацию принята'
             message = f'''
             Уважаемый(ая) {first_name} {last_name},
@@ -44,7 +59,7 @@ def consultation(request):
             Благодарим вас за обращение на наш правовой портал!
             Ваш вопрос: "{consultation.question[:50]}..."
             
-            Наши юристы рассмотрят вашу заявку в ближайшее время и свяжутся с вами в течение 3 дней.
+            Наши юристы рассмотрят вашу заявку в ближайшее время и свяжутся с вами по email в течение 3 рабочих дней.
             
             С уважением,
             Команда Правового портала
@@ -53,19 +68,20 @@ def consultation(request):
             try:
                 send_mail(
                     subject,
-                    message,
+                    message.strip(),
                     settings.DEFAULT_FROM_EMAIL,
-                    [email], 
+                    [email],
                     fail_silently=False,
                 )
-                messages.success(request, 'Ваша заявка принята! На ваш email отправлено подтверждение.')
+                messages.success(request, 'Ваша заявка успешно отправлена! На ваш email отправлено подтверждение.')
             except Exception as e:
-                messages.error(request, f'Произошла ошибка при отправке email: {str(e)}')
-                
+                messages.error(request, f'Произошла ошибка при отправке подтверждения: {str(e)}')
+                # Все равно продолжаем, так как заявка сохранена в базу
             
             return redirect('consultation')
     else:
         form = ConsultationForm()
+    
     return render(request, 'main/consultation.html', {'form': form})
 
 def preview_template(request, template_id):
