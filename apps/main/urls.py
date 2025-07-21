@@ -10,7 +10,7 @@ urlpatterns = [
 
     path('legal-news/', views.legal_news, name='legal_news'),
     path('news/platform-economy/', views.platform_economy_news_detail, name='platform_economy_news_detail'),
-    
+
     path('reference/', views.reference_materials, name='reference_materials'),
  
     path('reference/return/', views.return_category, name='return_category'),
@@ -33,4 +33,6 @@ urlpatterns = [
     path('glossary/', views.glossary, name='glossary'),
     path('template/preview/<int:template_id>/', views.preview_template, name='preview_template'),
     path('download-empty-template/<int:template_id>/', views.download_empty_template, name='download_empty_template'),
+
+    path('privacy-policy/', views.privacy_policy, name='privacy-policy'),
 ]

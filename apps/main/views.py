@@ -248,6 +248,9 @@ def platform_economy_news_detail(request):
     """Детальная страница новости о платформенной экономике"""
     return render(request, 'main/platform_economy_news_detail.html')
 
+def privacy_policy(request):
+    return render(request, 'main/privacy_policy.html')
+
 def reference_materials(request):
     query = request.GET.get('q', '').strip()
 
