@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+
+{% block title %}Генератор документов - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Генератор документов</h1>
+                <p class="lead text-center">Создавайте правовые документы по готовым шаблонам</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-file-alt"></i> Создание документа</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="template_select" class="form-label">Выберите шаблон документа *</label>
+                            <select name="template_id" id="template_select" class="form-select" required onchange="showFields()">
+                                <option value="">-- Выберите шаблон --</option>
+                                {% for template in templates %}
+                                    <option value="{{ template.id }}" {% if template.id == selected_template_id %}selected{% endif %}>{{ template.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div id="template-fields" style="display: none;">
+                            <h5 class="mb-3">Заполните поля документа:</h5>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="first_name" class="form-label">Имя</label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Введите имя">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="last_name" class="form-label">Фамилия</label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Введите фамилию">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="middle_name" class="form-label">Отчество</label>
+                                    <input type="text" name="middle_name" id="middle_name" class="form-control" placeholder="Введите отчество">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="passport_number" class="form-label">Номер паспорта</label>
+                                    <input type="text" name="passport_number" id="passport_number" class="form-control" placeholder="0000 000000">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Телефон</label>
+                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="+7 (000) 000-00-00">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="example@mail.com">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="date" class="form-label">Дата</label>
+                                    <input type="date" name="date" id="date" class="form-control">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="order_number" class="form-label">Номер заказа</label>
+                                    <input type="text" name="order_number" id="order_number" class="form-control" placeholder="Введите номер заказа">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Адрес</label>
+                                <input type="text" name="address" id="address" class="form-control" placeholder="Введите полный адрес">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="seller_name" class="form-label">Наименование продавца</label>
+                                <input type="text" name="seller_name" id="seller_name" class="form-control" placeholder="ООО 'Название компании'">
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="product_name" class="form-label">Наименование товара</label>
+                                    <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Название товара">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="product_price" class="form-label">Стоимость товара</label>
+                                    <input type="number" name="product_price" id="product_price" class="form-control" placeholder="0">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="product_article" class="form-label">Артикул товара</label>
+                                    <input type="text" name="product_article" id="product_article" class="form-control" placeholder="Артикул">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="purchase_date" class="form-label">Дата покупки</label>
+                                    <input type="date" name="purchase_date" id="purchase_date" class="form-control">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="order_amount" class="form-label">Сумма заказа</label>
+                                <input type="number" name="order_amount" id="order_amount" class="form-control" placeholder="0">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="date_order" class="form-label">Дата заказа</label>
+                                <input type="date" name="date_order" id="date_order" class="form-control">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="return_reason" class="form-label">Причина возврата</label>
+                                <input type="text" name="return_reason" id="return_reason" class="form-control" placeholder="Не подошел размер, цвет и т.д.">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="violation_description" class="form-label">Описание нарушения</label>
+                                <textarea name="violation_description" id="violation_description" class="form-control" rows="3" placeholder="Опишите суть нарушения ваших прав"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="demands" class="form-label">Ваши требования</label>
+                                <textarea name="demands" id="demands" class="form-control" rows="3" placeholder="Укажите ваши требования к продавцу"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="generate-btn">
+                                <i class="fas fa-file-download"></i> Создать документ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-info-circle"></i> Доступные шаблоны</h5>
+                </div>
+                <div class="card-body">
+                    {% if templates %}
+                        {% for template in templates %}
+                        <div class="template-info mb-3 p-3" style="background: #f8f9fa; border-radius: 8px;">
+                            <h6 class="text-primary">{{ template.name }}</h6>
+                            <small class="text-muted">Шаблон для создания {{ template.name|lower }}</small>
+                            <div class="mt-2">
+                                <a href="{% url 'preview_template' template.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i> Предпросмотр
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-warning">
+                            <p class="mb-0">Шаблоны не найдены.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header bg-secondary text-white">
+                    <h5><i class="fas fa-lightbulb"></i> Инструкция</h5>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        <li>Выберите нужный шаблон документа</li>
+                        <li>Нажмите "Предпросмотр" чтобы увидеть шаблон</li>
+                        <li>Заполните все необходимые поля</li>
+                        <li>Нажмите "Создать документ"</li>
+                        <li>Скачайте готовый документ</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header bg-warning text-white">
+                    <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Возникли вопросы при создании документа? Обратитесь к нашим специалистам.</p>
+                    <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showFields() {
+    const select = document.getElementById('template_select');
+    const fields = document.getElementById('template-fields');
+    
+    if (select.value) {
+        fields.style.display = 'block';
+        
+        // Устанавливаем текущую дату
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').value = today;
+        document.getElementById('purchase_date').value = today;
+        document.getElementById('date_order').value = today;
+    } else {
+        fields.style.display = 'none';
+    }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Показываем поля, если уже выбран шаблон
+    const urlParams = new URLSearchParams(window.location.search);
+    const templateId = urlParams.get('template_id');
+    if (templateId) {
+        document.getElementById('template_select').value = templateId;
+        showFields();
+    } else {
+        showFields();
+    }
+});
+</script>
+
+<style>
+.form-control, .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 1rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0;
+}
+
+.template-info {
+    transition: all 0.3s ease;
+}
+
+.template-info:hover {
+    background: #e9ecef !important;
+    transform: translateY(-2px);
+}
+
+.template-info .btn {
+    transition: all 0.2s ease;
+}
+
+.template-info .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}
