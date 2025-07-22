@@ -783,7 +783,14 @@
               </div>
             </div> <!-- /fields_template_8 -->
 
-
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" name="privacy_policy" id="id_privacy_policy" required>
+              <label class="form-check-label" for="id_privacy_policy">
+                Я соглашаюсь с <a href="{% url 'privacy-policy' %}" target="_blank">политикой конфиденциальности</a> и 
+                <a href="#" class="consent-text" id="showConsentText">даю согласие на обработку ПД</a> *
+              </label>
+              <div class="invalid-feedback">Вы должны принять политику конфиденциальности</div>
+            </div>
 
             <div class="d-grid mt-4">
               <button type="submit" class="btn btn-primary btn-lg">
@@ -862,6 +869,24 @@
   </div>
 </div>
 
+<div class="modal fade" id="consentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Согласие на обработку персональных данных</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Настоящим даю ООО “Маркет Надзор” свое согласие на автоматизированную и без использования средств автоматизации обработку моих персональных данных: Фамилия, Имя, Отчество, дата и место рождения, место жительства, серия и номер документа, удостоверяющего личность, номер мобильного телефона, следующими способами: сбор, запись, систематизацию, накопление, извлечение, использование, обезличивание, блокирование, удаление, уничтожение персональных данных с целью автоматического формирования шаблонов досудебных претензий, исковых заявлений и иных документов, указанных на веб-сайте “Маркет Надзор”.</p>
+        <p>Настоящее согласие действует до достижения указанной цели обработки и может быть отозвано в любой момент путем направления письменного заявления на адрес электронной почты market-nadzor@mail.ru</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 function showFields() {
   const select = document.getElementById('template_select');
@@ -881,6 +906,38 @@ function showFields() {
 
 document.addEventListener('DOMContentLoaded', () => {
   showFields();
+  
+  const privacyCheckbox = document.getElementById('id_privacy_policy');
+  const submitBtn = document.getElementById('submitBtn');
+  const form = document.getElementById('documentForm');
+  const showConsentText = document.getElementById('showConsentText');
+  const consentModal = new bootstrap.Modal(document.getElementById('consentModal'));
+  
+  // Показываем модальное окно при клике на текст согласия
+  showConsentText.addEventListener('click', function(e) {
+    e.preventDefault();
+    consentModal.show();
+  });
+  
+  // Включение/отключение кнопки в зависимости от состояния чекбокса
+  privacyCheckbox.addEventListener('change', function() {
+    submitBtn.disabled = !this.checked;
+  });
+  
+  // Валидация формы при отправке
+  form.addEventListener('submit', function(event) {
+    if (!privacyCheckbox.checked) {
+      event.preventDefault();
+      privacyCheckbox.classList.add('is-invalid');
+    }
+  });
+  
+  // Убираем сообщение об ошибке при клике на чекбокс
+  privacyCheckbox.addEventListener('click', function() {
+    if (this.classList.contains('is-invalid')) {
+      this.classList.remove('is-invalid');
+    }
+  });
 });
 </script>
 
