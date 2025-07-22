@@ -345,6 +345,10 @@ def price_category(request):
     """Категория 'Неверная цена'"""
     return render(request, 'main/price.html')
 
+def pretnezya(request):
+    """Категория 'Неверная цена'"""
+    return render(request, 'main/pretnezya.html')
+
 def return_category(request):
     """Категория 'Возврат товара'"""
     articles = FAQ.objects.filter(tags__icontains='Товар') | \

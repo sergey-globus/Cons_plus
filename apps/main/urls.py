@@ -26,6 +26,7 @@ urlpatterns = [
     path('art8/', views.return_plata, name='art8'),
     path('art9/', views.return_vskr_ypakovka, name='art9'),
     path('art10/', views.wrong_price, name='art10'),
+    path('pretnezya/', views.pretnezya, name='pretnezya'),
 
     path('glossary/', views.glossary, name='glossary'),
     path('template/preview/<int:template_id>/', views.preview_template, name='preview_template'),
