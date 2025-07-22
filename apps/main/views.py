@@ -131,25 +131,31 @@ def document_generator(request):
     templates = DocumentTemplate.objects.all()
 
     selected_template_id = request.GET.get('template_id')
-    # Приведём к int если возможно, иначе None
     try:
         selected_template_id_int = int(selected_template_id)
     except (TypeError, ValueError):
         selected_template_id_int = None
 
     if request.method == 'POST':
+        print("DEBUG: request.POST:", request.POST)
+
         template_id = request.POST.get('template_id')
         if template_id:
             try:
                 template = DocumentTemplate.objects.get(id=template_id)
 
-                form_data = {k: v if v else f'[{k}]' for k, v in request.POST.items()
-                             if k not in ('csrfmiddlewaretoken', 'template_id')}
+                # Берём первое непустое значение из списка значений каждого ключа
+                form_data = {}
+                for k, v_list in request.POST.lists():
+                    if k in ('csrfmiddlewaretoken', 'template_id'):
+                        continue
+                    value = next((v for v in v_list if v.strip()), '')
+                    form_data[k] = value if value else f'[{k}]'
 
-                # Сохраняем данные формы в сессии
                 request.session['form_data'] = form_data
 
-                # Перенаправляем на страницу с результатом документа
+                print("Parsed form_data:", form_data)
+
                 return redirect(reverse('document_result', kwargs={'template_id': template.id}))
 
             except DocumentTemplate.DoesNotExist:
@@ -159,6 +165,7 @@ def document_generator(request):
         'templates': templates,
         'selected_template_id': selected_template_id_int,
     })
+
 
 
 def download_pdf(request):
