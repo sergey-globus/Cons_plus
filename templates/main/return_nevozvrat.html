@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+
+{% block title %}Возврат товаров из перечня невозвратных - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Можно ли вернуть товар, входящий в перечень невозвратных товаров?</h1>
+                <p class="lead text-center">Особенности возврата технически сложных товаров, парфюмерии и других товаров из перечня</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <article class="legal-article">
+                <div class="legal-text">
+                    <p class="lead">Существует Перечень непродовольственных товаров надлежащего качества, не подлежащих обмену, утвержденный Постановлением Правительства РФ от 31.12.2020 № 2463.</p>
+                    
+                    <div class="law-reference">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>Постановление Правительства РФ от 31.12.2020 № 2463</span>
+                        <a href="https://www.consultant.ru/document/cons_doc_LAW_373622/a7e95958f6d9c791e728172bd17d5df3b1152118/" target="_blank" class="btn btn-sm btn-outline-primary">Читать документ</a>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <h4><i class="fas fa-check-circle"></i> Важно знать!</h4>
+                        <p>При дистанционной торговле перечень не применяется, т.к. положения ст. 26.1 Закона РФ от 07.02.1992 N 2300-1 «О защите прав <span class="def-tooltip def1">потребителей</span>» не предусматривают отсылок к указанному перечню.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Определение Четвертого кассационного суда общей юрисдикции от 20.03.2025 по делу N 88-7413/2025</span>
+                            <a href="https://4kas.sudrf.ru/modules.php?name=sud_delo&srv_num=1&name_op=doc&number=37980954&delo_id=2800001&new=2800001&text_number=1" target="_blank" class="btn btn-sm btn-outline-primary">Читать решение</a>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">Какие товары можно вернуть несмотря на перечень?</h2>
+                    
+                    <div class="rights-list">
+                        <div class="right-item">
+                            <div class="right-number">1</div>
+                            <div class="right-content">
+                                <h4>Технически сложные товары</h4>
+                                <p>Ноутбуки, смартфоны, фотоаппараты и другие технически сложные товары бытового назначения можно вернуть в 7-дневный срок.</p>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">2</div>
+                            <div class="right-content">
+                                <h4>Парфюмерия и косметика</h4>
+                                <p>Духи, туалетная вода, кремы и другие косметические средства также подлежат возврату.</p>
+                            </div>
+                        </div>
+
+                        <div class="right-item">
+                            <div class="right-number">3</div>
+                            <div class="right-content">
+                                <h4>Нижнее белье</h4>
+                                <p>Товары из трикотажа и швейные изделия, относящиеся к бельевым, можно вернуть при сохранении товарного вида.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">Исключения из правила</h2>
+                    
+                    <div class="important-principle">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Когда возврат невозможен?</h3>
+                        <p>Нельзя вернуть товар надлежащего качества, имеющий индивидуально-определенные свойства, если указанный товар может быть использован исключительно приобретающим его покупателем.</p>
+                        <ul>
+                            <li>Мебель, изготовленная по индивидуальным размерам</li>
+                            <li>Ювелирные изделия с гравировкой</li>
+                            <li>Другие товары, изготовленные под заказ</li>
+                        </ul>
+                    </div>
+
+                    <div class="conclusion">
+                        <h3><i class="fas fa-gavel"></i> Вывод</h3>
+                        <p><strong>Потребитель вправе вернуть любой товар надлежащего качества, приобретенный дистанционным способом, даже если он входит в перечень невозвратных товаров, при условии сохранения товарного вида и потребительских свойств.</strong></p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-black">
+                        <h5><i class="fas fa-info-circle"></i> Шаблон заявления</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'preview_template' 1 %}" class="btn btn-warning btn-block btn-consult">Открыть шаблон</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const def1 = "Определение: Гражданин, имеющий намерение заказать или приобрести либо заказывающий, приобретающий или использующий товары исключительно для личных, семейных, домашних и иных нужд, не связанных с осуществлением предпринимательской деятельности.";
+    const def2 = "Определение: Лицо, которое продает или обязуется продать товар.";
+    const def3 = "Определение: Предложение заключить договор, обращенное к неопределенному кругу лиц и содержащее все существенные условия договора.";
+    const elements = document.getElementsByClassName("def1");
+    for (let el of elements) { el.setAttribute("data-tooltip", def1); }
+    const elements2 = document.getElementsByClassName("def2");
+    for (let el of elements2) { el.setAttribute("data-tooltip", def2); }
+    const elements3 = document.getElementsByClassName("def3");
+    for (let el of elements3) { el.setAttribute("data-tooltip", def3); }
+</script>
+
+<style>
+/* КРУГЛЫЕ синие номера для timeline и шагов */
+.timeline-number, .step-number, .right-number {
+    width: 40px;
+    height: 40px;
+    background: #246acf;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.23rem;
+    font-weight: bold;
+    margin-right: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px 0 rgba(80,120,200,0.06);
+}
+
+.timeline-list, .rights-timeline, .rights-list {
+    margin: 30px 0;
+}
+
+.timeline-item, .rights-timeline-item, .step, .right-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.timeline-content, .right-content, .step-content {
+    flex: 1;
+}
+
+.right-content h4, .timeline-content h4, .step-content h4 {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    font-size: 1.11rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 42px;
+    margin-bottom: 20px;
+    color: #22223b;
+}
+
+.law-reference {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f9f9fb;
+    border-left: 4px solid #fa9238;
+    padding: 15px 14px;
+    border-radius: 7px;
+    margin: 24px 0 16px 0;
+}
+
+.law-reference i {
+    color: #fa9238;
+    font-size: 1.18em;
+}
+
+.law-reference a {
+    margin-left: auto;
+}
+
+.def-tooltip {
+    text-decoration: underline;
+    position: relative;
+    cursor: pointer;
+}
+
+.def-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 150%;
+    background: #808080;
+    font-weight: 400;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    width: max-content;
+    max-width: 300px;
+    text-align: center;
+    z-index: 100;
+    font-size: 15px;
+}
+
+.def-tooltip:hover::after {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    .timeline-item, .rights-timeline-item, .step, .right-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    .timeline-number, .step-number, .right-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+</style>
+{% endblock %}

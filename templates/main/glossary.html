@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Глоссарий - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Глоссарий правовых терминов</h1>
+                <p class="lead text-center">Пояснения основных понятий в сфере прав потребителей на маркетплейсах</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="glossary-container">
+                
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-handshake"></i> Публичная оферта</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Предложение заключить договор, обращенное к неопределенному кругу лиц и содержащее все существенные условия договора.</p>
+                        <p><strong>В контексте маркетплейсов:</strong> Размещение товара на сайте с указанием цены, описания и условий продажи является публичной офертой. Когда покупатель оформляет заказ и оплачивает товар, договор считается заключенным.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Статья 437 ГК РФ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-user-tie"></i> Продавец</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Лицо, которое продает или обязуется продать товар.</p>
+                        <p><strong>На маркетплейсах:</strong> Это может быть как сам маркетплейс, так и третье лицо (поставщик), размещающее товары на платформе. Важно различать, кто именно является продавцом в конкретной сделке, так как именно к нему предъявляются требования по качеству товара.</p>
+                        <div class="important-note">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Информация о продавце должна быть указана в карточке товара и электронном чеке</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-shopping-cart"></i> Покупатель (Потребитель)</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Гражданин, имеющий намерение заказать или приобрести либо заказывающий, приобретающий или использующий товары исключительно для личных, семейных, домашних и иных нужд, не связанных с осуществлением предпринимательской деятельности.</p>
+                        <p><strong>Права потребителя:</strong> Защищены специальным законом "О защите прав потребителей", который предоставляет дополнительные гарантии при покупке товаров.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Закон РФ "О защите прав потребителей"</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="sidebar">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5><i class="fas fa-arrow-left"></i> Назад к разделу</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'reference_materials' %}" class="btn btn-info btn-block">Права на маркетплейсах</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-white">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.glossary-container {
+    margin-bottom: 40px;
+}
+
+.term-card {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.term-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.term-header {
+    background: linear-gradient(135deg, var(--info-color), var(--info-light));
+    color: white;
+    padding: 20px 25px;
+}
+
+.term-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.term-header i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.term-content {
+    padding: 25px;
+}
+
+.term-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.term-content strong {
+    color: var(--primary-solid);
+}
+
+.law-reference {
+    background: rgba(248, 249, 250, 0.8);
+    border-left: 4px solid var(--info-color);
+    padding: 12px 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 0 8px 8px 0;
+}
+
+.law-reference i {
+    color: var(--info-color);
+}
+
+.law-reference span {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.important-note {
+    background: rgba(255, 243, 205, 0.8);
+    border: 1px solid var(--warning-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.important-note i {
+    color: #856404;
+}
+
+.important-note span {
+    color: #856404;
+    font-weight: 500;
+}
+
+.sidebar .card-header {
+    border-bottom: none;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .term-header {
+        padding: 15px 20px;
+    }
+    
+    .term-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .term-content {
+        padding: 20px;
+    }
+}
+</style>
+{% endblock %}
