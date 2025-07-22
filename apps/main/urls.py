@@ -8,7 +8,8 @@ urlpatterns = [
     path('download-pdf/', views.download_pdf, name='download_pdf'),
     path('legal-news/', views.legal_news, name='legal_news'),
     path('reference/', views.reference_materials, name='reference_materials'),
- 
+    path('news/platform-economy/', views.platform_economy_news_detail, name='platform_economy_news_detail'),
+
     path('reference/return/', views.return_category, name='return_category'),
     path('reference/seller/', views.seller_category, name='seller_category'),
     path('reference/delivery/', views.delivery_category, name='delivery_category'),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('document_result/<int:template_id>/', views.document_result, name='document_result'),
     path('download_word/<int:template_id>/', views.download_word, name='download_word'),
     path('download-empty-template-pdf/<int:template_id>/', views.download_empty_template_pdf, name='download_empty_template_pdf'),
+    path('privacy-policy/', views.privacy_policy, name='privacy-policy'),
 ]
