@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}Просмотр шаблона - {{ template.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Заголовок -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Просмотр шаблона</h1>
+                <p class="lead text-center">{{ template.name }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Основное содержимое шаблона -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4><i class="fas fa-file-alt"></i> {{ template.name }}</h4>
+                        <div>
+                            <a href="{% url 'download_empty_template' template.id %}" class="btn btn-outline-primary me-2 mb-3">
+                                <i class="fas fa-download"></i> Скачать шаблон (Word)
+                            </a>
+                            <div class="mb-3"></div> <!-- Отступ -->
+                            <a href="{% url 'download_empty_template_pdf' template.id %}" class="btn btn-outline-danger me-2 mb-3" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-file-pdf"></i> Открыть шаблон (PDF)
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="white-space: pre-wrap; font-family: 'Times New Roman', serif; line-height: 1.6; background: #fff; border: 1px solid #ddd; padding: 20px;">
+                            {{ document_html|safe }}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Боковая панель с информацией -->
+        <div class="col-md-4">
+            <div class="card sticky-top mb-4" style="top:20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5><i class="fas fa-info-circle"></i> Информация о шаблоне</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Для заполнения этого шаблона потребуется {{ translated_fields|length }} полей
+                    </div>
+
+                    <h6 class="mt-4 mb-3">Советы по заполнению:</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success"></i> Заполняйте все обязательные поля</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success"></i> Сохраняйте оригинальное форматирование</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success"></i> Проверяйте данные перед отправкой</li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'document_generator' %}?template_id={{ template.id }}" class="btn btn-success btn-block">
+                        <i class="fas fa-magic"></i> Заполнить шаблон на нашем сайте
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+p {
+  margin: 0 0 10px 0;
+  text-align: justify;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+ul, ol {
+  margin-left: 25px;
+  margin-bottom: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 5px;
+  vertical-align: top;
+}
+
+.document-content p {
+  text-indent: 30px;
+  margin-bottom: 10px;
+}
+
+.document-content ul,
+.document-content ol {
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+
+.document-content table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.document-content table, .document-content th, .document-content td {
+  border: 1px solid #999;
+  padding: 5px 10px;
+}
+
+.document-content {
+    border-radius: 8px;
+    min-height: 400px;
+}
+
+    .template-content {
+        white-space: pre-wrap;
+        font-family: 'Times New Roman', serif;
+        font-size: 14px;
+        line-height: 1.6;
+        padding: 20px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        min-height: 400px;
+    }
+</style>
+{% endblock %}
