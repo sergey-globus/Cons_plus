@@ -143,7 +143,7 @@ def load_test_data():
         cursor.execute("DELETE FROM sqlite_sequence WHERE name=%s;", [DocumentTemplate._meta.db_table])
     print("ID автоинкремент сброшен до 1")
 
-    MEDIA_ROOT = 'media'  # Задайте здесь корректный путь к вашей папке media (абсолютный или относительный)
+    MEDIA_ROOT = os.path.join(settings.BASE_DIR, 'media')
     
     templates_data = [
         {
