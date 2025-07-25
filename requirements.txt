@@ -7,3 +7,4 @@ Pillow==11.0.0
 docxtpl==0.20.1
 mammoth==1.9.1
 pycryptodome==3.23.0
+python_dotenv==1.1.1
