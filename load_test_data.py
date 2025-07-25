@@ -143,6 +143,7 @@ def load_test_data():
         cursor.execute("DELETE FROM sqlite_sequence WHERE name=%s;", [DocumentTemplate._meta.db_table])
     print("ID автоинкремент сброшен до 1")
 
+    from django.conf import settings
     MEDIA_ROOT = os.path.join(settings.BASE_DIR, 'media')
     
     templates_data = [
