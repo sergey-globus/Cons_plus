@@ -143,21 +143,22 @@ def load_test_data():
         cursor.execute("DELETE FROM sqlite_sequence WHERE name=%s;", [DocumentTemplate._meta.db_table])
     print("ID автоинкремент сброшен до 1")
 
-    # Создание новых шаблонов документов, связанных с маркетплейсами
+    MEDIA_ROOT = 'media'  # Задайте здесь корректный путь к вашей папке media (абсолютный или относительный)
+    
     templates_data = [
         {
             'name': 'Шаблон искового заявления (общий)',
-            'word_document_path': 'documents\\src\\docx\\Шаблон искового заявления (общий).docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон искового заявления (общий).docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон искового заявления (общий).pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_искового_заявления_общий.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_искового_заявления_общий.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_искового_заявления_общий.pdf'),
             'template_content': "",
             'required_fields': [],
         },
         {
             'name': 'Претензия (товар ненадлежащего качества)',
-            'word_document_path': 'documents\\src\\docx\\Претензия_1_товар_ненадлежащего_качества.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Претензия_1_товар_ненадлежащего_качества.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Претензия_1_товар_ненадлежащего_качества.pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Претензия_1_товар_ненадлежащего_качества.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Претензия_1_товар_ненадлежащего_качества.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Претензия_1_товар_ненадлежащего_качества.pdf'),
             'template_content': "",
             'required_fields': [
                 'SELLER_NAME', 'SELLER_ADDRESS', 'BUYER_NAME', 'BUYER_ADDRESS', 'BUYER_PHONE',
@@ -166,13 +167,13 @@ def load_test_data():
                 'DELIVERY_DAY', 'DELIVERY_MONTH', 'DELIVERY_YEAR', 'DEFECT_DETECTION_PERIOD',
                 'DEFECT_DESCRIPTION', 'WARRANTY_PERIOD', 'CLAIM_REQUIREMENTS',
                 'CURRENT_DAY', 'CURRENT_MONTH', 'CURRENT_YEAR',
-            ]
+            ],
         },
         {
             'name': 'Претензия (односторонняя отмена заказа)',
-            'word_document_path': 'documents\\src\\docx\\Претензия_2_односторонняя_отмена_заказа.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Претензия_2_односторонняя_отмена_заказа.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Претензия_2_односторонняя_отмена_заказа.pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Претензия_2_односторонняя_отмена_заказа.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Претензия_2_односторонняя_отмена_заказа.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Претензия_2_односторонняя_отмена_заказа.pdf'),
             'template_content': "",
             'required_fields': [
                 'SELLER_NAME', 'SELLER_ADDRESS', 'BUYER_NAME', 'BUYER_ADDRESS', 'BUYER_PHONE',
@@ -185,9 +186,9 @@ def load_test_data():
         },
         {
             'name': 'Претензия (недостоверная информация)',
-            'word_document_path': 'documents\\src\\docx\\Претензия_3_недостоверная_информация.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Претензия_3_недостоверная_информация.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Претензия_3_недостоверная_информация.pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Претензия_3_недостоверная_информация.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Претензия_3_недостоверная_информация.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Претензия_3_недостоверная_информация.pdf'),
             'template_content': "",
             'required_fields': [
                 'SELLER_NAME', 'SELLER_ADDRESS', 'BUYER_NAME', 'BUYER_ADDRESS', 'BUYER_PHONE',
@@ -198,9 +199,9 @@ def load_test_data():
         },
         {
             'name': 'Иск (возврат товара надлежащего качества)',
-            'word_document_path': 'documents\\src\\docx\\Возврат_товара_надлежащего_качества.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Возврат_товара_надлежащего_качества.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Возврат_товара_надлежащего_качества.pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Возврат_товара_надлежащего_качества.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Возврат_товара_надлежащего_качества.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Возврат_товара_надлежащего_качества.pdf'),
             'template_content': "",
             'required_fields': [
                 'COURT_NAME',
@@ -224,9 +225,9 @@ def load_test_data():
         },
         {
             'name': 'Иск (возврат товара ненадлежащего качества)',
-            'word_document_path': 'documents\\src\\docx\\Возврат_товара_ненадлежащего_качества.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Возврат_товара_ненадлежащего_качества.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Возврат_товара_ненадлежащего_качества.pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Возврат_товара_ненадлежащего_качества.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Возврат_товара_ненадлежащего_качества.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Возврат_товара_ненадлежащего_качества.pdf'),
             'template_content': "",
             'required_fields': [
                 'COURT_NAME',
@@ -250,9 +251,9 @@ def load_test_data():
         },
         {
             'name': 'Иск (недостоверная информация о товаре)',
-            'word_document_path': 'documents\\src\\docx\\Недостоверная_информация_о_товаре.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Недостоверная_информация_о_товаре.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Недостоверная_информация_о_товаре.pdf',
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Недостоверная_информация_о_товаре.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Недостоверная_информация_о_товаре.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Недостоверная_информация_о_товаре.pdf'),
             'template_content': "",
             'required_fields': [
                 'COURT_NAME',
@@ -262,8 +263,8 @@ def load_test_data():
                 'PLAINTIFF_ADDRESS',
                 'PLAINTIFF_PASSPORT_INFO',
                 'DEFENDANT_NAME',
-                'DEFENDANT_BIRTH_DATE',  # Обратите внимание, что здесь переменная DEFENDANT_BIRTH_DATE
-                'DEFENDANT_BIRTH_PLACE',  # и DEFENDANT_BIRTH_PLACE были не совсем корректны в вашем тексте
+                'DEFENDANT_BIRTH_DATE',
+                'DEFENDANT_BIRTH_PLACE',
                 'DEFENDANT_ADDRESS',
                 'DEFENDANT_PASSPORT_INFO',
                 'CLAIM_AMOUNT',
@@ -276,10 +277,10 @@ def load_test_data():
         },
         {
             'name': 'Иск (отмена заказа продавцом)',
-            'word_document_path': 'documents\\src\\docx\\Отмена_заказа_продавцом.docx',
-            'word_template_path': 'documents\\src\\docx\\Шаблон_Отмена_заказа_продавцом.docx',
-            'pdf_template_path': 'documents\\src\\pdf\\Шаблон_Отмена_заказа_продавцом.pdf',
-            'template_content': "",  # Можно заполнить при необходимости
+            'word_document_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Отмена_заказа_продавцом.docx'),
+            'word_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'docx', 'Шаблон_Отмена_заказа_продавцом.docx'),
+            'pdf_template_path': os.path.join(MEDIA_ROOT, 'documents', 'src', 'pdf', 'Шаблон_Отмена_заказа_продавцом.pdf'),
+            'template_content': "",
             'required_fields': [
                 'COURT_NAME',
                 'PLAINTIFF_NAME',
@@ -305,6 +306,7 @@ def load_test_data():
             ],
         }
     ]
+
 
     from django.conf import settings
     from django.core.files import File
