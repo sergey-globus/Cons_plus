@@ -1,0 +1,21 @@
+<div class="sidebar">
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+        </div>
+        <div class="card-body">
+            <p>Не нашли ответ на свой вопрос? Обратитесь к нашим специалистам.</p>
+            <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header bg-secondary text-white">
+            <h5><i class="fas fa-file-alt"></i> Документы</h5>
+        </div>
+        <div class="card-body">
+            <p>Создавайте правовые документы по готовым шаблонам.</p>
+            <a href="{% url 'document_generator' %}" class="btn btn-outline-secondary btn-block">Генератор документов</a>
+        </div>
+    </div>
+</div>

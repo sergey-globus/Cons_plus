@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+
+{% block title %}Глоссарий - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Глоссарий правовых терминов</h1>
+                <p class="lead text-center">Пояснения основных понятий в сфере прав потребителей на маркетплейсах</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="glossary-container">
+                
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-handshake"></i> Публичная оферта товара</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Содержащее все существенные условия договора розничной купли-продажи предложение продавца к неопределенному кругу потребителей заключить договор.</p>
+                        <p><strong>В контексте маркетплейсов:</strong> Размещение товара на сайте с указанием цены, описания и условий продажи является публичной офертой. Когда покупатель оформляет заказ и оплачивает товар, договор считается заключенным.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Статья 437 ГК РФ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-user-tie"></i> Продавец</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Организация или индивидуальный предприниматель, реализующие товары потребителям по договору купли-продажи.</p>
+                        <p><strong>На маркетплейсах:</strong> Это может быть как сам маркетплейс, так и третье лицо (поставщик), размещающее товары на платформе. Важно различать, кто именно является продавцом в конкретной сделке, так как именно к нему предъявляются требования по качеству товара.</p>
+                        <div class="important-note">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Информация о продавце должна быть указана в карточке товара и электронном чеке</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-shopping-cart"></i> Потребитель</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Гражданин, имеющий намерение заказать или приобрести либо заказывающий, приобретающий или использующий товары (работы, услуги) исключительно для личных, семейных, домашних и иных нужд, не связанных с осуществлением предпринимательской деятельности.</p>
+                        <p><strong>Права потребителя:</strong> Защищены специальным законом "О защите прав потребителей", который предоставляет дополнительные гарантии при покупке товаров.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Закон РФ "О защите прав потребителей"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-industry"></i> Изготовитель</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Организация или индивидуальный предприниматель, производящие товары для реализации потребителям.</p>
+                        <p><strong>Ответственность:</strong> Изготовитель несет ответственность за качество товара, его безопасность и соответствие заявленным характеристикам.</p>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-globe"></i> Импортер</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Организация или индивидуальный предприниматель, осуществляющие импорт товара для его последующей реализации на территории Российской Федерации.</p>
+                        <p><strong>Обязанности:</strong> Импортер несет те же обязанности, что и изготовитель, в части качества и безопасности товара, а также предоставления информации о товаре.</p>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-store"></i> Маркетплейс</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Онлайн-платформа владельца агрегатора в сети Интернет, позволяющая потребителю одновременно ознакомиться с предложением продавца товаров, заключить договор купли-продажи товара, а также оплатить товар в наличной или безналичной форме.</p>
+                        <p><strong>Функции:</strong> Маркетплейс может выступать в роли информационного посредника или становиться стороной договора купли-продажи, что определяет его ответственность перед потребителем.</p>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-heart-broken"></i> Моральный вред</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Физические или нравственные страдания, причиненные потребителю вследствие нарушения изготовителем (исполнителем, продавцом, уполномоченной организацией или уполномоченным индивидуальным предпринимателем, импортером) прав потребителя.</p>
+                        <p><strong>Компенсация:</strong> Размер компенсации морального вреда определяется судом и не зависит от размера возмещения имущественного вреда.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Статья 15 Закона "О защите прав потребителей"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-money-bill-wave"></i> Неустойка</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Определенная законом или договором денежная сумма, которую продавец обязан уплатить потребителю в случае неисполнения или ненадлежащего исполнения обязательства.</p>
+                        <p><strong>Применение:</strong> Может быть взыскана, если нарушены сроки устранения недостатков товара, замены товара ненадлежащего качества, возврата уплаченной суммы или другие обязательства продавца.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Статья 23 Закона "О защите прав потребителей"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-shield-alt"></i> Безопасность товара</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Безопасность товара для жизни, здоровья, имущества потребителя и окружающей среды при обычных условиях его использования, хранения, транспортировки и утилизации.</p>
+                        <p><strong>Гарантии:</strong> Продавец (изготовитель) обязан обеспечить безопасность товара в течение установленного срока службы или срока годности товара.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Статья 7 Закона "О защите прав потребителей"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-card">
+                    <div class="term-header">
+                        <h3><i class="fas fa-cogs"></i> Технически сложный товар</h3>
+                    </div>
+                    <div class="term-content">
+                        <p><strong>Определение:</strong> Потребительский товар длительного пользования, имеющий сложное внутреннее устройство и выполняющий пользовательские функции на высоко технологическом уровне с использованием различных энергоресурсов.</p>
+                        <p><strong>Особенности возврата:</strong> Для технически сложных товаров установлен особый порядок возврата и обмена - потребитель может потребовать возврата денег или замены товара только при обнаружении существенных недостатков.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Перечень утвержден Постановлением Правительства РФ от 10.11.2011 N 924</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="sidebar">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5><i class="fas fa-arrow-left"></i> Назад к разделу</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'reference_materials' %}" class="btn btn-info btn-block">Права на маркетплейсах</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-white">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.glossary-container {
+    margin-bottom: 40px;
+}
+
+.term-card {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.term-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.term-header {
+    background: linear-gradient(135deg, var(--info-color), var(--info-light));
+    color: white;
+    padding: 20px 25px;
+}
+
+.term-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.term-header i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.term-content {
+    padding: 25px;
+}
+
+.term-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.term-content strong {
+    color: var(--primary-solid);
+}
+
+.law-reference {
+    background: rgba(248, 249, 250, 0.8);
+    border-left: 4px solid var(--info-color);
+    padding: 12px 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 0 8px 8px 0;
+}
+
+.law-reference i {
+    color: var(--info-color);
+}
+
+.law-reference span {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.important-note {
+    background: rgba(255, 243, 205, 0.8);
+    border: 1px solid var(--warning-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.important-note i {
+    color: #856404;
+}
+
+.important-note span {
+    color: #856404;
+    font-weight: 500;
+}
+
+.sidebar .card-header {
+    border-bottom: none;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .term-header {
+        padding: 15px 20px;
+    }
+    
+    .term-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .term-content {
+        padding: 20px;
+    }
+}
+</style>
+{% endblock %}
