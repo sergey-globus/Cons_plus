@@ -295,6 +295,13 @@ def legal_news(request):
             'published_at': '21.07.2025',
             'source': 'Государственная Дума РФ',
             'url': '/news/platform-economy/',  # Внутренняя ссылка на полную новость
+        },
+        {
+            'title': 'Законопроект о платформенной экономике принят в третьем чтении',
+            'content': 'Как новый законопроект защитит права продавцов и покупателей на маркетплейсах...',
+            'published_at': '28.07.2025',
+            'source': 'Государственная Дума РФ',
+            'url': '/news/platform-economy_2/',  # Внутренняя ссылка на полную новость
         }
     ]
     
@@ -306,6 +313,10 @@ def privacy_policy(request):
 def platform_economy_news_detail(request):
     """Детальная страница новости о платформенной экономике"""
     return render(request, 'main/platform_economy_news_detail.html')
+
+def platform_economy_news_detail_2(request):
+    """Детальная страница новости о платформенной экономике"""
+    return render(request, 'main/platform_economy_news_detail_2.html')
 
 def reference_materials(request):
     query = request.GET.get('q', '').strip()
