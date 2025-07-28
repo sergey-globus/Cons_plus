@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Проблемы с продавцом - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Проблемы с продавцом</h1>
+                <p class="lead text-center">Решение конфликтов и споров с продавцами на маркетплейсах</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="materials-grid">
+                <div class="topic-section">
+                    <div class="articles-grid">
+                        {% for article in articles %}
+                            {% if "продавец" in article.tags|lower or "отмена" in article.tags|lower or "оферта" in article.tags|lower %}
+                            <div class="article-card">
+                                <div class="article-icon">
+                                    <i class="{{ article.icon_class }}"></i>
+                                </div>
+                                <div class="article-content">
+                                    <h4>{{ article.title }}</h4>
+                                    <p>{{ article.description }}</p>
+                                    <div class="article-tags">
+                                        {% for tag in article.tags_list %}
+                                            <span class="tag">{{ tag }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <a href="{% url article.url_name %}" class="btn btn-primary btn-sm">Читать статью</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% empty %}
+                            <p>Статей не найдено.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Боковая панель из предыдущего шаблона -->
+            {% include 'main/articles_sidebar.html' %}
+        </div>
+    </div>
+</div>
+
+<style>
+.topic-section {
+    margin-bottom: 40px;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.article-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--info-color), var(--info-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.article-content {
+    flex: 1;
+}
+
+.article-content h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.article-content p {
+    color: #6c757d;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.article-tags {
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(135, 206, 250, 0.3);
+    color: var(--info-color);
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    margin-bottom: 5px;
+    border: 1px solid var(--info-light);
+}
+
+@media (max-width: 768px) {
+    .article-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .article-icon {
+        align-self: center;
+    }
+}
+</style>
+{% endblock %}

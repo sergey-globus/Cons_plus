@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+
+{% block title %}Ошибочная цена товара - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Может ли продавец отказаться от исполнения договора, если цена на сайте оказалась ошибочной?</h1>
+                <p class="lead text-center">Защита прав при технических ошибках в ценах</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <article class="legal-article">
+                <div class="legal-text">
+                    <p class="lead">Ситуация, когда <span class="def-tooltip def2">продавец</span> отменяет в одностороннем порядке заказ <span class="def-tooltip def1">покупателя</span> по причине технической ошибки в указании цены на сайте является весьма распространенной. Однако подобные действия со стороны продавца не являются правомерными.</p>
+
+                    <div class="principle-box">
+                        <h3><i class="fas fa-ban"></i> Два основных принципа</h3>
+                        
+                        <div class="principle-item">
+                            <h4>1. Недопустимость одностороннего отказа</h4>
+                            <p>Продавец не вправе отказываться от исполнения договора без предусмотренных на то законом оснований.</p>
+                            <div class="reference-link">
+                                <i class="fas fa-link"></i>
+                                <span>Подробнее в статье <a href="{% url 'order-cancellation' %}">"Что делать если продавец/маркетплейс в одностороннем порядке отменил заказ?"</a></span>
+                            </div>
+                        </div>
+
+                        <div class="principle-item">
+                            <h4>2. Публичная оферта</h4>
+                            <p>Размещенное на сайте продавца предложение о продаже товара, обращенное к неопределенному кругу лиц и содержащее подробную информацию о товаре и его цене, является публичной офертой.</p>
+                            <div class="reference-link">
+                                <i class="fas fa-book"></i>
+                                <span>О том, что такое <span class="def-tooltip def3">публичная оферта</span> - <a href="{% url 'glossary' %}">в нашем глоссарии</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Как заключается договор?</h3>
+                    <p>Когда вы, как покупатель, оформляете заказ товара, оплачиваете его стоимость — вы соглашаетесь с условиями, предложенными продавцом на сайте, а у продавца в свою очередь возникает обязанность по передаче товара покупателю.</p>
+
+                    <div class="alert alert-success">
+                        <h4><i class="fas fa-gavel"></i> Позиция Верховного Суда РФ</h4>
+                        <p>После получения продавцом сообщения потребителя о намерении заключить договор на условиях публичной оферты продавец не вправе в одностороннем порядке изменить объявленную цену товара, даже под предлогом технической ошибки.</p>
+                        
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Обзор судебной практики по делам о защите прав потребителей (утв. Президиумом Верховного Суда РФ 18.10.2023)</span>
+                            <a href="https://login.consultant.ru/link/?req=doc&base=LAW&n=460140&dst=100045&date=21.07.2025&demo=2" target="_blank" class="btn btn-sm btn-outline-primary">Читать документ</a>
+                        </div>
+                    </div>
+
+                    <div class="case-example">
+                        <h3><i class="fas fa-newspaper"></i> Пример из судебной практики</h3>
+                        <p>Зачастую следствием таких несоответствующих требованиям действий становятся громкие судебные разбирательства, где суд встает на сторону потребителя.</p>
+                        
+                        <div class="example-card">
+                            <h4>Дело ЦУМа</h4>
+                            <p>Несколько лет назад суд оказался на стороне покупателя, который купил вещи в ЦУМе в 846 раз дешевле по причине технической ошибки на сайте.</p>
+                            <div class="alert alert-info">
+                                <small><i class="fas fa-info-circle"></i> Это показательный случай того, как суды защищают права потребителей даже при значительных технических ошибках в ценах.</small>
+                            </div>
+                            <div class="reference-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span><a href="https://www.rbc.ru/society/19/07/2023/64b7d1959a7947a970fb9fbd" target="_blank">Читать новость на РБК</a></span>
+                            </div> 
+                            
+                        </div>
+                    </div>
+
+                    <div class="conclusion">
+                        <h3><i class="fas fa-check-circle"></i> Вывод</h3>
+                        <p><strong>Продавец не может в одностороннем порядке изменить цену интернет-заказа. Договор купли-продажи заключен и должен быть исполнен.</strong></p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-black">
+                        <h5><i class="fas fa-info-circle"></i> Шаблон заявления</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'preview_template' 1 %}" class="btn btn-warning btn-block btn-consult">Открыть шаблон</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const def1 = "Определение: Гражданин, имеющий намерение заказать или приобрести либо заказывающий, приобретающий или использующий товары исключительно для личных, семейных, домашних и иных нужд, не связанных с осуществлением предпринимательской деятельности.";
+    const def2 = "Определение: Лицо, которое продает или обязуется продать товар."
+    const def3 = "Определение: Предложение заключить договор, обращенное к неопределенному кругу лиц и содержащее все существенные условия договора."
+    const elements = document.getElementsByClassName("def1");
+    for (let el of elements) {
+      el.setAttribute("data-tooltip", def1);
+    }
+    const elements2 = document.getElementsByClassName("def2");
+    for (let el of elements2) {
+      el.setAttribute("data-tooltip", def2);
+    }
+    const elements3 = document.getElementsByClassName("def3");
+    for (let el of elements3) {
+      el.setAttribute("data-tooltip", def3);
+    }
+</script>
+
+<style>
+.def-tooltip {
+  text-decoration: underline;
+  position: relative;
+  cursor: pointer;
+}
+.def-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 150%;
+  background: #808080;
+  font-weight: 400;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  width: max-content;
+  max-width: 300px;
+  text-align: center;
+  z-index: 100;
+  font-size: 15px;
+}
+.def-tooltip:hover::after {
+  opacity: 1;
+  pointer-events: auto;
+}
+.principle-box {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+    border: 2px solid var(--success-color);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 30px 0;
+}
+
+.principle-box h3 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.principle-item {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.principle-item h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.reference-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.reference-link i {
+    color: var(--primary-color);
+}
+
+.reference-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.reference-link a:hover {
+    text-decoration: underline;
+}
+
+.case-example {
+    background: #fff3cd;
+    border: 1px solid var(--warning-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+}
+
+.case-example h3 {
+    color: #856404;
+    margin-bottom: 20px;
+}
+
+.example-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.example-card h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.action-guide {
+    margin: 30px 0;
+}
+
+.action-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.action-icon {
+    background: linear-gradient(45deg, var(--primary-color), var(--success-color));
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+.action-content h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.action-content ul {
+    margin-bottom: 0;
+}
+
+.action-content ul li {
+    margin-bottom: 5px;
+}
+
+.conclusion {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border: 1px solid var(--success-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.conclusion h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.law-reference {
+    background: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.law-reference i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.law-reference span {
+    flex: 1;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Фиолетовые стили для "Назад к разделу" с прозрачностью */
+.violet-header {
+    background: rgba(128, 0, 255, 0.7) !important;
+    color: #fff !important;
+}
+
+.violet-btn {
+    background: rgba(128, 0, 255, 0.7) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.violet-btn:hover, .violet-btn:focus {
+    background: rgba(102, 0, 204, 0.5) !important;
+    color: #fff !important;
+}
+
+@media (max-width: 768px) {
+    .action-step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .action-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+</style>
+{% endblock %}

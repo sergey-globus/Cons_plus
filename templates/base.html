@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}МаркетНадзор{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: rgb(255, 174, 0); /* Насыщенный золотой */
+            --primary-solid: rgb(255, 107, 53);
+            --secondary-color: rgb(108, 117, 125);
+            --info-color: rgb(88, 69, 255); /* Насыщенный синий */
+            --info-light: rgba(135, 206, 250, 0.6);
+            --warning-color: rgb(255, 193, 7); /* Насыщенный желтый */
+            --danger-color: rgb(220, 53, 69); /* Насыщенный красный */
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --accent-color: rgb(95, 36, 202); /* Насыщенный фиолетовый */
+            --text-color: #2c3e50;
+            --border-color: #dee2e6;
+            --consultant-blue: rgb(74, 144, 226); /* Насыщенный голубой */
+            --consultant-gray: #f5f5f5;
+            --help-gradient: linear-gradient(135deg, rgb(255, 193, 7), rgb(220, 53, 69)); /* Полностью непрозрачный градиент */
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #fafafa;
+        }
+        
+        main {
+            flex: 1;
+        }
+        
+        footer {
+            margin-top: auto;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color), var(--danger-color)) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: white !important;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: rgba(255,255,255,0.9) !important;
+        }
+        
+        .nav-link:hover {
+            color: #fff !important;
+            transform: translateY(-1px);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero-section-small {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), rgb(229, 90, 43));
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(45deg, rgb(240, 95, 45), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-solid);
+            border-color: var(--primary-solid);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-solid);
+        }
+        
+        .btn-info {
+            background: var(--info-color);
+            border-color: var(--info-color);
+            color: white;
+        }
+        
+        .btn-outline-info {
+            color: var(--info-color);
+            border-color: var(--info-color);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-warning {
+            background: var(--warning-color);
+            border-color: var(--warning-color);
+            color: #212529;
+        }
+        
+        .card {
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: var(--consultant-gray);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        .card-header.bg-info {
+            background: linear-gradient(135deg, var(--info-color), var(--consultant-blue)) !important;
+            color: white;
+        }
+        
+        .card-header.bg-warning {
+            background: var(--help-gradient) !important;
+            color: white;
+        }
+        
+        .card-header.bg-secondary {
+            background: var(--secondary-color) !important;
+            color: white;
+        }
+        
+        .alert-info {
+            background-color: rgba(231, 227, 255, 0.8);
+            border-color: var(--info-color);
+            color: #4c3d99;
+        }
+        
+        .alert-warning {
+            background-color: rgba(255, 243, 205, 0.8);
+            border-color: var(--warning-color);
+            color: #856404;
+        }
+        
+        .text-primary {
+            color: var(--primary-solid) !important;
+        }
+        
+        .bg-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color)) !important;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-solid);
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+        
+        .form-select:focus {
+            border-color: var(--primary-solid);
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+        
+        .table-striped > tbody > tr:nth-of-type(odd) > td {
+            background-color: rgba(248, 249, 250, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">МаркетНадзор</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                    <a class="nav-link" href="{% url 'reference_materials' %}">Ситуации</a>
+                    <a class="nav-link" href="{% url 'consultation' %}">Консультация</a>
+                    <a class="nav-link" href="{% url 'legal_news' %}">Новости</a>
+                    <a class="nav-link" href="{% url 'glossary' %}">Глоссарий</a>
+                    <a class="nav-link" href="{% url 'document_generator' %}">Генератор документов</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 <a href="/privacy-policy/" class="footer-link">Политика обработки персональных данных</a>. Все права защищены.</p>
+            <p class="mb-0 mt-2">Информация, содержащаяся на Сайте, включая авторские материалы (комментарии, статьи, ответы на вопросы и т.д.), имеет справочный характер. Компания "МаркетНадзор" не несет ответственности за правильность информации, изложенной в авторских материалах.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
