@@ -157,7 +157,7 @@ def document_generator(request):
 
                 request.session['form_data'] = form_data
 
-                print("Parsed form_data:", form_data)
+           #     print("Parsed form_data:", form_data)
 
                 return redirect(reverse('document_result', kwargs={'template_id': template.id}))
 
