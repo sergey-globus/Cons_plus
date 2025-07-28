@@ -139,8 +139,8 @@ def document_generator(request):
     except (TypeError, ValueError):
         selected_template_id_int = None
 
-    if request.method == 'POST':
-        print("DEBUG: request.POST:", request.POST)
+    # if request.method == 'POST':
+    #   print("DEBUG: request.POST:", request.POST)
 
         template_id = request.POST.get('template_id')
         if template_id:
@@ -333,9 +333,9 @@ def reference_materials(request):
         article.tags_list = [tag.strip() for tag in article.tags.split(',')] if article.tags else []
 
     # Отладочная печать - что мы передаем в шаблон
-    print(f"Total articles found: {articles.count()}")
-    for a in articles:
-        print(f"Article: {a.title}, tags: {a.tags_list}")
+    # print(f"Total articles found: {articles.count()}")
+    # for a in articles:
+    #   print(f"Article: {a.title}, tags: {a.tags_list}")
 
     context = {
         'articles': articles,
