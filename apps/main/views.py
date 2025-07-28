@@ -7,8 +7,8 @@ from django.conf import settings
 from io import BytesIO
 import os
 from docx import Document
-from docxtpl import DocxTemplate  # Для работы с шаблонами Word
-import mammoth  # Д
+from docxtpl import DocxTemplate
+import mammoth
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
@@ -23,42 +23,30 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-# Глобальный пул потоков для выполнения синхронного IO-кода
+# Global thread pool for synchronous IO operations
 executor = ThreadPoolExecutor(max_workers=10)
-from django.contrib.sessions.backends.base import SessionBase
 
-@sync_to_async
-def async_session_set(session: SessionBase, key: str, value):
+# Helper functions for session operations
+def session_set(session, key, value):
     session[key] = value
     session.save()
 
-@sync_to_async
-def async_session_get(session: SessionBase, key: str, default=None):
+def session_get(session, key, default=None):
     return session.get(key, default)
-# Асинхронные обертки для синхронных операций
-async_send_mail = sync_to_async(send_mail, thread_sensitive=True)
-async_render = sync_to_async(render, thread_sensitive=False)
-async_redirect = sync_to_async(redirect, thread_sensitive=False)
-async_get_object_or_404 = sync_to_async(get_object_or_404, thread_sensitive=False)
 
 async def index(request):
-    return await async_render(request, 'main/index.html')
-
-@sync_to_async
-def sync_save_consultation(form):
-    consultation = form.save()
-    return consultation
-async_send_mail = sync_to_async(send_mail, thread_sensitive=True)
+    return await sync_to_async(render)(request, 'main/index.html')
 
 async def consultation(request):
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
             try:
-                # Асинхронное сохранение формы
-                consultation = await sync_to_async(form.save)()
+                # Save consultation in a separate task
+                save_task = asyncio.create_task(sync_to_async(form.save)())
+                consultation = await save_task
                 
-                # Получаем расшифрованные данные
+                # Prepare email data
                 first_name = consultation.first_name
                 last_name = consultation.last_name
                 email = consultation.email
@@ -76,14 +64,18 @@ async def consultation(request):
                 Команда МаркетНадзор
                 '''
                 
-
-                await async_send_mail(
-                    subject=subject,
-                    message=message,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[email],
-                    fail_silently=False,
+                # Send email in a separate task
+                email_task = asyncio.create_task(
+                    sync_to_async(send_mail)(
+                        subject=subject,
+                        message=message,
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[email],
+                        fail_silently=False,
+                    )
                 )
+                await email_task
+                
                 messages.success(request, 'Ваша заявка принята! На ваш email отправлено подтверждение.')
                 request.session['show_success_gif'] = True
                 
@@ -97,16 +89,17 @@ async def consultation(request):
     return await sync_to_async(render)(request, 'main/consultation.html', {'form': form})
 
 async def document_result(request, template_id):
-    # Асинхронно получаем данные из сессии
-    form_data = await async_session_get(request.session, 'form_data', {})
+    # Get session data in a separate task
+    session_task = asyncio.create_task(sync_to_async(session_get)(request.session, 'form_data', {}))
+    form_data = await session_task
     
-    # Асинхронно получаем шаблон
-    template = await sync_to_async(DocumentTemplate.objects.get)(id=template_id)
+    # Get template in a separate task
+    template_task = asyncio.create_task(sync_to_async(DocumentTemplate.objects.get)(id=template_id))
+    template = await template_task
 
     document_html = "<p>Файл шаблона не загружен.</p>"
 
     if template.word_document:
-        # Обработка файла в отдельном потоке
         def process_template():
             tmp_path = None
             try:
@@ -123,7 +116,9 @@ async def document_result(request, template_id):
                 if tmp_path and os.path.exists(tmp_path):
                     os.remove(tmp_path)
         
-        document_html = await asyncio.get_event_loop().run_in_executor(None, process_template)
+        # Process template in thread pool
+        process_task = asyncio.get_event_loop().run_in_executor(executor, process_template)
+        document_html = await process_task
 
     return await sync_to_async(render)(
         request, 
@@ -136,26 +131,33 @@ async def document_result(request, template_id):
     )
 
 async def preview_template(request, template_id):
-    template = await async_get_object_or_404(DocumentTemplate, id=template_id)
+    template_task = asyncio.create_task(sync_to_async(get_object_or_404)(DocumentTemplate, id=template_id))
+    template = await template_task
+    
     document_html = ""
 
     if template.word_template:
-        with open(template.word_template.path, "rb") as docx_file:
-            result = mammoth.convert_to_html(docx_file)
-            document_html = result.value
+        def convert_to_html():
+            with open(template.word_template.path, "rb") as docx_file:
+                result = mammoth.convert_to_html(docx_file)
+                return result.value
+        
+        convert_task = asyncio.get_event_loop().run_in_executor(executor, convert_to_html)
+        document_html = await convert_task
 
     context = {
         'template': template,
         'document_html': document_html,
         'translated_fields': template.get_translated_fields(),
     }
-    return await async_render(request, "main/preview_template.html", context)
+    return await sync_to_async(render)(request, "main/preview_template.html", context)
 
 async def document_generator(request):
-    # Асинхронно получаем шаблоны
-    templates = await sync_to_async(list)(DocumentTemplate.objects.all())
+    # Get templates in a separate task
+    templates_task = asyncio.create_task(sync_to_async(list)(DocumentTemplate.objects.all()))
+    templates = await templates_task
 
-    # Обработка GET-параметра
+    # Handle template selection
     selected_template_id = request.GET.get('template_id')
     try:
         selected_template_id_int = int(selected_template_id)
@@ -166,10 +168,11 @@ async def document_generator(request):
         template_id = request.POST.get('template_id')
         if template_id:
             try:
-                # Асинхронно получаем шаблон
-                template = await sync_to_async(DocumentTemplate.objects.get)(id=template_id)
+                # Get template in a separate task
+                template_task = asyncio.create_task(sync_to_async(DocumentTemplate.objects.get)(id=template_id))
+                template = await template_task
 
-                # Формируем данные формы
+                # Prepare form data
                 form_data = {}
                 for k, v_list in request.POST.lists():
                     if k in ('csrfmiddlewaretoken', 'template_id'):
@@ -177,16 +180,15 @@ async def document_generator(request):
                     value = next((v for v in v_list if v.strip()), '')
                     form_data[k] = value if value else f'[{k}]'
 
-                # Асинхронное сохранение в сессию
-                await async_session_set(request.session, 'form_data', form_data)
+                # Save to session in a separate task
+                session_task = asyncio.create_task(sync_to_async(session_set)(request.session, 'form_data', form_data))
+                await session_task
 
-                # Перенаправление (не требует async)
                 return redirect(reverse('document_result', kwargs={'template_id': template.id}))
 
             except DocumentTemplate.DoesNotExist:
                 await sync_to_async(messages.error)(request, 'Выбранный шаблон не найден')
 
-    # Асинхронный рендеринг шаблона
     return await sync_to_async(render)(request, 'main/document_generator.html', {
         'templates': templates,
         'selected_template_id': selected_template_id_int,
@@ -198,9 +200,8 @@ async def download_pdf(request):
 
     if not document_text:
         messages.error(request, 'Документ не найден. Создайте документ заново.')
-        return await async_redirect('document_generator')
+        return redirect('document_generator')
 
-    # Создаем PDF в отдельном потоке
     def generate_pdf():
         buffer = BytesIO()
         p = canvas.Canvas(buffer, pagesize=A4)
@@ -263,46 +264,44 @@ async def download_pdf(request):
         buffer.seek(0)
         return buffer
 
-    buffer = await asyncio.get_event_loop().run_in_executor(executor, generate_pdf)
+    # Generate PDF in thread pool
+    generate_task = asyncio.get_event_loop().run_in_executor(executor, generate_pdf)
+    buffer = await generate_task
 
     response = HttpResponse(buffer.getvalue(), content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{template_name}.pdf"'
     return response
 
 async def download_word(request, template_id):
-    # Get template asynchronously
-    template = await async_get_object_or_404(DocumentTemplate, id=template_id)
+    # Get template and session data in parallel
+    template_task = asyncio.create_task(sync_to_async(get_object_or_404)(DocumentTemplate, id=template_id))
+    session_task = asyncio.create_task(sync_to_async(session_get)(request.session, 'form_data', {}))
     
-    # Get form data from session asynchronously
-    form_data = await async_session_get(request.session, 'form_data', {})
+    template, form_data = await asyncio.gather(template_task, session_task)
 
     if not template.word_document:
         await sync_to_async(messages.error)(request, 'Шаблон документа не найден.')
-        return await async_redirect('document_generator')
+        return redirect('document_generator')
 
     def generate_docx():
         tmp_path = None
         try:
-            # Create temporary file
             with tempfile.NamedTemporaryFile(delete=False, suffix='.docx') as tmp:
                 tmp_path = tmp.name
-                
-                # Process the template
                 doc = DocxTemplate(template.word_document.path)
                 doc.render(form_data)
                 doc.save(tmp_path)
 
-            # Read the processed file
             with open(tmp_path, 'rb') as f:
                 return f.read()
         finally:
-            # Clean up
             if tmp_path and os.path.exists(tmp_path):
                 os.remove(tmp_path)
 
     try:
-        # Run the synchronous file operations in a thread
-        content = await asyncio.get_event_loop().run_in_executor(executor, generate_docx)
+        # Generate document in thread pool
+        content_task = asyncio.get_event_loop().run_in_executor(executor, generate_docx)
+        content = await content_task
 
         response = HttpResponse(
             content,
@@ -313,7 +312,7 @@ async def download_word(request, template_id):
 
     except Exception as e:
         await sync_to_async(messages.error)(request, f'Ошибка при генерации документа: {str(e)}')
-        return await async_redirect(reverse('document_result', kwargs={'template_id': template_id}))
+        return redirect(reverse('document_result', kwargs={'template_id': template_id}))
 
 async def legal_news(request):
     all_news = [
@@ -333,27 +332,33 @@ async def legal_news(request):
         }
     ]
     
-    return await async_render(request, 'main/legal_news.html', {'all_news': all_news})
+    return await sync_to_async(render)(request, 'main/legal_news.html', {'all_news': all_news})
 
 async def privacy_policy(request):
-    return await async_render(request, 'main/privacy_policy.html')
+    return await sync_to_async(render)(request, 'main/privacy_policy.html')
 
 async def platform_economy_news_detail(request):
-    return await async_render(request, 'main/platform_economy_news_detail.html')
+    return await sync_to_async(render)(request, 'main/platform_economy_news_detail.html')
 
 async def platform_economy_news_detail_2(request):
-    return await async_render(request, 'main/platform_economy_news_detail_2.html')
+    return await sync_to_async(render)(request, 'main/platform_economy_news_detail_2.html')
 
 async def reference_materials(request):
     query = request.GET.get('q', '').strip()
 
     if query:
-        articles = await sync_to_async(list)(FAQ.objects.filter(
-            Q(title__iregex=query) | Q(description__iregex=query) | Q(synonyms__iregex=query),
-            is_active=True
+        articles_task = asyncio.create_task(sync_to_async(list)(
+            FAQ.objects.filter(
+                Q(title__iregex=query) | 
+                Q(description__iregex=query) | 
+                Q(synonyms__iregex=query),
+                is_active=True
+            )
         ))
     else:
-        articles = await sync_to_async(list)(FAQ.objects.filter(is_active=True))
+        articles_task = asyncio.create_task(sync_to_async(list)(FAQ.objects.filter(is_active=True)))
+
+    articles = await articles_task
 
     for article in articles:
         article.tags_list = [tag.strip() for tag in article.tags.split(',')] if article.tags else []
@@ -363,31 +368,34 @@ async def reference_materials(request):
         'query': query,
     }
 
-    return await async_render(request, 'main/reference_materials.html', context)
+    return await sync_to_async(render)(request, 'main/reference_materials.html', context)
 
 async def marketplace_rights(request):
-    return await async_render(request, 'main/marketplace_rights.html')
+    return await sync_to_async(render)(request, 'main/marketplace_rights.html')
 
 async def order_cancellation(request):
-    return await async_render(request, 'main/order_cancellation.html')
+    return await sync_to_async(render)(request, 'main/order_cancellation.html')
 
 async def price_error(request):
-    return await async_render(request, 'main/price_error.html')
+    return await sync_to_async(render)(request, 'main/price_error.html')
 
 async def glossary(request):
-    return await async_render(request, 'main/glossary.html')
+    return await sync_to_async(render)(request, 'main/glossary.html')
 
 async def price_category(request):
-    return await async_render(request, 'main/price.html')
+    return await sync_to_async(render)(request, 'main/price.html')
 
 async def pretnezya(request):
-    return await async_render(request, 'main/pretnezya.html')
+    return await sync_to_async(render)(request, 'main/pretnezya.html')
 
 async def return_category(request):
-    articles = await sync_to_async(list)(FAQ.objects.filter(tags__icontains='Товар') | \
-               FAQ.objects.filter(tags__icontains='Качество') | \
-               FAQ.objects.filter(tags__icontains='Брак') | \
-               FAQ.objects.filter(tags__icontains='Упаковка'))
+    articles_task = asyncio.create_task(sync_to_async(list)(
+        FAQ.objects.filter(tags__icontains='Товар') | 
+        FAQ.objects.filter(tags__icontains='Качество') | 
+        FAQ.objects.filter(tags__icontains='Брак') | 
+        FAQ.objects.filter(tags__icontains='Упаковка')
+    ))
+    articles = await articles_task
     
     for article in articles:
         article.tags_list = [tag.strip() for tag in article.tags.split(',')]
@@ -397,12 +405,15 @@ async def return_category(request):
         'page_title': 'Проблемы с товаром',
         'page_description': 'Решение проблем, связанных с качеством и характеристиками товаров'
     }
-    return await async_render(request, 'main/return.html', context)
+    return await sync_to_async(render)(request, 'main/return.html', context)
 
 async def seller_category(request):
-    articles = await sync_to_async(list)(FAQ.objects.filter(tags__icontains='Продавец') | \
-               FAQ.objects.filter(tags__icontains='Отмена') | \
-               FAQ.objects.filter(tags__icontains='Оферта'))
+    articles_task = asyncio.create_task(sync_to_async(list)(
+        FAQ.objects.filter(tags__icontains='Продавец') | 
+        FAQ.objects.filter(tags__icontains='Отмена') | 
+        FAQ.objects.filter(tags__icontains='Оферта')
+    ))
+    articles = await articles_task
     
     for article in articles:
         article.tags_list = [tag.strip() for tag in article.tags.split(',')]
@@ -412,11 +423,14 @@ async def seller_category(request):
         'page_title': 'Проблемы с продавцом',
         'page_description': 'Решение конфликтов и споров с продавцами на маркетплейсах'
     }
-    return await async_render(request, 'main/seller.html', context)
+    return await sync_to_async(render)(request, 'main/seller.html', context)
 
 async def delivery_category(request):
-    articles = await sync_to_async(list)(FAQ.objects.filter(tags__icontains='Доставка') | \
-               FAQ.objects.filter(tags__icontains='Получение'))
+    articles_task = asyncio.create_task(sync_to_async(list)(
+        FAQ.objects.filter(tags__icontains='Доставка') | 
+        FAQ.objects.filter(tags__icontains='Получение')
+    ))
+    articles = await articles_task
     
     for article in articles:
         article.tags_list = [tag.strip() for tag in article.tags.split(',')]
@@ -426,47 +440,48 @@ async def delivery_category(request):
         'page_title': 'Проблемы с доставкой',
         'page_description': 'Решение вопросов, связанных с доставкой товаров'
     }
-    return await async_render(request, 'main/delivery.html', context)
+    return await sync_to_async(render)(request, 'main/delivery.html', context)
 
 async def damaged_category(request):
-    return await async_render(request, 'main/damaged.html')
+    return await sync_to_async(render)(request, 'main/damaged.html')
 
 async def delivery_terms_category(request):
-    return await async_render(request, 'main/delivery_terms.html')
+    return await sync_to_async(render)(request, 'main/delivery_terms.html')
 
 async def bad_goods_delivered(request):
-    return await async_render(request, 'main/bad_goods_delivered.html')
+    return await sync_to_async(render)(request, 'main/bad_goods_delivered.html')
 
 async def dosydebnii_isk(request):
-    return await async_render(request, 'main/dosydebnii_isk.html')
+    return await sync_to_async(render)(request, 'main/dosydebnii_isk.html')
 
 async def isk_zyavlenie(request):
-    return await async_render(request, 'main/isk_zyavlenie.html')
+    return await sync_to_async(render)(request, 'main/isk_zyavlenie.html')
 
 async def return_bad(request):
-    return await async_render(request, 'main/return_bad.html')
+    return await sync_to_async(render)(request, 'main/return_bad.html')
 
 async def return_good(request):
-    return await async_render(request, 'main/return_good.html')
+    return await sync_to_async(render)(request, 'main/return_good.html')
 
 async def return_nevozvrat(request):
-    return await async_render(request, 'main/return_nevozvrat.html')
+    return await sync_to_async(render)(request, 'main/return_nevozvrat.html')
 
 async def return_plata(request):
-    return await async_render(request, 'main/return_plata.html')
+    return await sync_to_async(render)(request, 'main/return_plata.html')
 
 async def return_vskr_ypakovka(request):
-    return await async_render(request, 'main/return_vskr_ypakovka.html')
+    return await sync_to_async(render)(request, 'main/return_vskr_ypakovka.html')
 
 async def wrong_price(request):
-    return await async_render(request, 'main/wrong_price.html')
+    return await sync_to_async(render)(request, 'main/wrong_price.html')
 
 async def download_empty_template(request, template_id):
-    template = await async_get_object_or_404(DocumentTemplate, id=template_id)
+    template_task = asyncio.create_task(sync_to_async(get_object_or_404)(DocumentTemplate, id=template_id))
+    template = await template_task
 
     if not template.word_template:
         messages.error(request, "Файл шаблона Word не найден.")
-        return await async_redirect('preview_template', template_id=template.id)
+        return redirect('preview_template', template_id=template.id)
 
     def process_docx():
         doc = Document(template.word_template.path)
@@ -497,7 +512,8 @@ async def download_empty_template(request, template_id):
         buffer.seek(0)
         return buffer
 
-    buffer = await asyncio.get_event_loop().run_in_executor(executor, process_docx)
+    process_task = asyncio.get_event_loop().run_in_executor(executor, process_docx)
+    buffer = await process_task
 
     filename = f'Пустой_{template.name}.docx'
 
@@ -509,11 +525,12 @@ async def download_empty_template(request, template_id):
     return response
 
 async def download_empty_template_pdf(request, template_id):
-    template = await async_get_object_or_404(DocumentTemplate, id=template_id)
+    template_task = asyncio.create_task(sync_to_async(get_object_or_404)(DocumentTemplate, id=template_id))
+    template = await template_task
 
     if not template.pdf_template:
         messages.error(request, "PDF шаблон не найден.")
-        return await async_redirect('preview_template', template_id=template.id)
+        return redirect('preview_template', template_id=template.id)
 
     pdf_path = template.pdf_template.path
 
@@ -524,7 +541,8 @@ async def download_empty_template_pdf(request, template_id):
         with open(pdf_path, 'rb') as f:
             return f.read()
 
-    content = await asyncio.get_event_loop().run_in_executor(executor, read_file)
+    read_task = asyncio.get_event_loop().run_in_executor(executor, read_file)
+    content = await read_task
 
     response = HttpResponse(content, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="Пустой_{template.name}.pdf"'
