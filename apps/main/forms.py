@@ -1,7 +1,7 @@
 from django import forms
 from .models import Consultation
 from .crypto import GOSTCrypto
-
+from asgiref.sync import sync_to_async
 crypto = GOSTCrypto()
 from django import forms
 from .models import Consultation
@@ -33,6 +33,23 @@ class ConsultationForm(forms.Form):
         consultation.email = self.cleaned_data['email']
         consultation.question = self.cleaned_data['question']
         consultation.save()
+        return consultation
+    class Meta:
+        model = Consultation
+        fields = ['first_name', 'last_name', 'email', 'question']
+        
+    async def async_save(self):
+        """Асинхронное сохранение формы"""
+        # Создаем новый экземпляр модели
+        consultation = Consultation(
+            first_name=self.cleaned_data['first_name'],
+            last_name=self.cleaned_data['last_name'],
+            email=self.cleaned_data['email'],
+            question=self.cleaned_data['question']
+        )
+        
+        # Сохраняем асинхронно
+        await sync_to_async(consultation.save)()
         return consultation
 
 class DocumentGeneratorForm(forms.Form):
