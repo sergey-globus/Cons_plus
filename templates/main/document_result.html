@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}Готовый документ - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Готовый документ</h1>
+                <p class="lead text-center">{{ template_name }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header d-flex align-items-center justify-content-between">
+            <h4><i class="fas fa-file-text"></i> {{ template_name }}</h4>
+            <div class="d-flex gap-3">
+              <a href="{% url 'download_word' template_id %}" class="btn btn-info btn-lg d-flex align-items-center">
+                <i class="fas fa-file-word me-2"></i> Скачать Word
+              </a>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="document-content" style="white-space: pre-line; font-family: 'Times New Roman', serif; line-height: 1.6; padding: 20px; background: white; border: 1px solid #ddd;">
+                        <div style="white-space: pre-wrap; font-family: 'Times New Roman', serif; line-height: 1.6; background: #fff; border: 1px solid #ddd; padding: 20px;">
+                            {{ document_html|safe }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex gap-2">
+                        <a href="javascript:history.back()" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Создать новый
+                        </a>
+                        <button onclick="copyDocument()" class="btn btn-outline-primary btn-lg d-flex align-items-center">
+                            <i class="fas fa-copy me-2"></i> Копировать
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-info-circle"></i> Информация</h5>
+                </div>
+                <div class="card-body">
+                    <p>Документ успешно создан. Вы можете:</p>
+                    <ul>
+                        <li>Скачать в формате Word</li>
+                        <li>Скопировать текст</li>
+                        <li>Создать новый документ</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header bg-secondary text-white">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Важно!</h5>
+                </div>
+                <div class="card-body">
+                    <p>Проверьте все данные в документе перед использованием. При необходимости обратитесь к юристу для консультации.</p>
+                    <a href="{% url 'consultation' %}" class="btn btn-secondary btn-sm">Получить консультацию</a>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header bg-warning text-white">
+                    <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                </div>
+                <div class="card-body">
+                    <p>Возникли вопросы по документу? Обратитесь к нашим специалистам.</p>
+                    <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function printDocument() {
+    const content = document.querySelector('.document-content').innerHTML;
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>{{ template_name }}</title>
+                <style>
+                    body { font-family: 'Times New Roman', serif; line-height: 1.6; margin: 20px; }
+                    @media print { body { margin: 0; } }
+                </style>
+            </head>
+            <body>${content}</body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+}
+
+function copyDocument() {
+    const content = document.querySelector('.document-content').innerText;
+    navigator.clipboard.writeText(content).then(function() {
+        alert('Документ скопирован в буфер обмена!');
+    }, function(err) {
+        console.error('Ошибка копирования: ', err);
+        // Fallback для старых браузеров
+        const textArea = document.createElement('textarea');
+        textArea.value = content;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Документ скопирован в буфер обмена!');
+    });
+}
+</script>
+
+<style>
+.document-content p {
+  text-indent: 30px;
+  margin-bottom: 10px;
+}
+
+.document-content ul,
+.document-content ol {
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+
+.document-content table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.document-content table, .document-content th, .document-content td {
+  border: 1px solid #999;
+  padding: 5px 10px;
+}
+
+.document-content {
+    border-radius: 8px;
+    min-height: 400px;
+}
+
+.card-footer {
+    background: var(--consultant-gray);
+    border-top: 1px solid var(--border-color);
+}
+
+.d-flex.gap-2 > * {
+    margin-right: 10px;
+}
+
+.d-flex.gap-2 > *:last-child {
+    margin-right: 0;
+}
+</style>
+{% endblock %}

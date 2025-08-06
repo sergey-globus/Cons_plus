@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}Платность возврата товара - Правовой портал{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hero-section-small text-white rounded p-4 mb-5">
+                <h1 class="display-5 text-center">Вправе ли продавец удерживать плату за возврат товара?</h1>
+                <p class="lead text-center">Законность взимания платы за обратную доставку товара</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <article class="legal-article">
+                <div class="legal-text">
+                    <p class="lead">Правомерность платы за возврат зависит от качества возвращаемого товара:</p>
+
+                    <h2 class="section-title">1. Возврат товара надлежащего качества</h2>
+                    
+                    <div class="alert alert-info">
+                        <h4><i class="fas fa-info-circle"></i> Правомерно</h4>
+                        <p>Если товар исправен и соответствует заявленным характеристикам, но не подошел по цвету, размеру, комплектации и т.д. Вы имеете право оформить возврат. В таком случае <span class="def-tooltip def2">продавец</span> может удержать из возвращаемой покупной цены стоимость обратной доставки товара.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Пункт 4 статьи 26.1 ЗоЗПП</span>
+                            <a href="https://login.consultant.ru/link/?req=doc&base=LAW&n=482748&dst=100418&date=21.07.2025&demo=2" target="_blank" class="btn btn-sm btn-outline-primary">Читать закон</a>
+                        </div>
+                    </div>
+
+                    <p class="lead"><strong>Платный возврат правомерен при условии, что взимаемая с покупателя сумма не превышает фактические затраты на пересылку товара.</strong></p>
+
+                    <h2 class="section-title">2. Возврат товара ненадлежащего качества</h2>
+                    
+                    <div class="alert alert-danger">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Неправомерно</h4>
+                        <p>Если в товаре был обнаружен дефект, покупатель вправе отказаться от исполнения договора и потребовать возврата уплаченных продавцу денежных средств. По требованию продавца и за его счет потребитель должен вернуть товар с недостатками.</p>
+                        <div class="law-reference">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Пункт 1 статьи 18 ЗоЗПП</span>
+                            <a href="https://login.consultant.ru/link/?req=doc&base=LAW&n=482748&dst=14&date=21.07.2025&demo=2" target="_blank" class="btn btn-sm btn-outline-primary">Читать закон</a>
+                        </div>
+                    </div>
+
+                    <p class="lead"><strong>Все расходы на обратную доставку товара несет продавец.</strong></p>
+
+                    <div class="conclusion">
+                        <h3><i class="fas fa-gavel"></i> Вывод</h3>
+                        <p><strong>Продавец вправе удерживать плату за возврат только при возврате товара надлежащего качества. При возврате товара с недостатками все расходы по обратной доставке несет продавец.</strong></p>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="sidebar">
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="fas fa-question-circle"></i> Нужна помощь?</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Если у вас возникли вопросы, обратитесь к нашим специалистам.</p>
+                        <a href="{% url 'consultation' %}" class="btn btn-warning btn-block">Получить консультацию</a>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-warning text-black">
+                        <h5><i class="fas fa-info-circle"></i> Шаблон заявления</h5>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'preview_template' 1 %}" class="btn btn-warning btn-block btn-consult">Открыть шаблон</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const def1 = "Определение: Гражданин, имеющий намерение заказать или приобрести либо заказывающий, приобретающий или использующий товары исключительно для личных, семейных, домашних и иных нужд, не связанных с осуществлением предпринимательской деятельности.";
+    const def2 = "Определение: Лицо, которое продает или обязуется продать товар.";
+    const def3 = "Определение: Предложение заключить договор, обращенное к неопределенному кругу лиц и содержащее все существенные условия договора.";
+    const elements = document.getElementsByClassName("def1");
+    for (let el of elements) { el.setAttribute("data-tooltip", def1); }
+    const elements2 = document.getElementsByClassName("def2");
+    for (let el of elements2) { el.setAttribute("data-tooltip", def2); }
+    const elements3 = document.getElementsByClassName("def3");
+    for (let el of elements3) { el.setAttribute("data-tooltip", def3); }
+</script>
+
+<style>
+
+.timeline-number, .step-number, .right-number {
+    width: 40px;
+    height: 40px;
+    background: #246acf;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.23rem;
+    font-weight: bold;
+    margin-right: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px 0 rgba(80,120,200,0.06);
+}
+
+.timeline-list, .rights-timeline, .rights-list {
+    margin: 30px 0;
+}
+
+.timeline-item, .rights-timeline-item, .step, .right-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.timeline-content, .right-content, .step-content {
+    flex: 1;
+}
+
+.right-content h4, .timeline-content h4, .step-content h4 {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    font-size: 1.11rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 42px;
+    margin-bottom: 20px;
+    color: #22223b;
+}
+
+.law-reference {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f9f9fb;
+    border-left: 4px solid #fa9238;
+    padding: 15px 14px;
+    border-radius: 7px;
+    margin: 24px 0 16px 0;
+}
+
+.law-reference i {
+    color: #fa9238;
+    font-size: 1.18em;
+}
+
+.law-reference a {
+    margin-left: auto;
+}
+
+.def-tooltip {
+    text-decoration: underline;
+    position: relative;
+    cursor: pointer;
+}
+
+.def-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 150%;
+    background: #808080;
+    font-weight: 400;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    width: max-content;
+    max-width: 300px;
+    text-align: center;
+    z-index: 100;
+    font-size: 15px;
+}
+
+.def-tooltip:hover::after {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    .timeline-item, .rights-timeline-item, .step, .right-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    .timeline-number, .step-number, .right-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+</style>
+
+
+{% endblock %}
